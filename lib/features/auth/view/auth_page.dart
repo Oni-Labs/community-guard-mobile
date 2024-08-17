@@ -108,7 +108,7 @@ class _AuthViewState extends State<AuthView> {
                 const SizedBox(height: 50),
                 Center(
                     child:
-                        ButtonWidget(onPressed: () => context.push('/feed'))),
+                        ButtonWidget(onPressed: () => context.push('/home'))),
                 const SizedBox(height: 50),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,

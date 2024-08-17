@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../import_post.dart';
@@ -26,11 +25,9 @@ class ImportPostView extends StatelessWidget {
         // TODO: return correct widget based on the state.
         return Scaffold(
           appBar: AppBar(
-            title: Text('Import Post'),
+            title: const Text('Import Post'),
           ),
-          body: Container(
-            child: Text('Import Post'),
-          ),
+          body: const Text('Import Post'),
         );
       },
     );

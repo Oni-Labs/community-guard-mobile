@@ -1,6 +1,4 @@
-import 'package:community_surveillance/app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../search.dart';
@@ -27,11 +25,9 @@ class SearchView extends StatelessWidget {
         // TODO: return correct widget based on the state.
         return Scaffold(
           appBar: AppBar(
-            title: Text('Search'),
+            title: const Text('Search'),
           ),
-          body: Container(
-            child: Text('Search'),
-          ),
+          body: const Text('Search'),
         );
       },
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/feed_bloc.dart';
+import '../bloc/home_bloc.dart';
 
 class PostItem extends StatelessWidget {
   const PostItem(
@@ -17,7 +17,7 @@ class PostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FeedBloc(),
+      create: (context) => HomeBloc(),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white38,
@@ -98,7 +98,7 @@ class PostItem extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton(
                         onPressed: () {
-                          context.read<FeedBloc>().add(const FavoritePost());
+                          context.read<HomeBloc>().add(const FavoritePost());
                         },
                         icon: isFavorite
                             ? const Icon(
@@ -183,7 +183,7 @@ class PostItem extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     onPressed: () {
-                      context.read<FeedBloc>().add(const SavePost());
+                      context.read<HomeBloc>().add(const SavePost());
                     },
                     icon: isSaved
                         ? const Icon(

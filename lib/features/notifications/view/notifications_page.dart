@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../notifications.dart';
@@ -26,9 +25,9 @@ class NotificationsView extends StatelessWidget {
         // TODO: return correct widget based on the state.
         return Scaffold(
           appBar: AppBar(
-            title: Text('Notifications'),
+            title: const Text('Notifications'),
           ),
-          body: Container(child: Text('Notifications')),
+          body: const Text('Notifications'),
         );
       },
     );

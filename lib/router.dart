@@ -5,7 +5,6 @@ import 'package:community_surveillance/features/settings/settings.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-import 'features/home/view/home_page.dart';
 import 'helpers.dart';
 
 final GoRouter router = GoRouter(
@@ -13,7 +12,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => const AuthPage(),
       routes: [
         GoRoute(
           path: 'settings',

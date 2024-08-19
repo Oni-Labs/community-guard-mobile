@@ -1,7 +1,6 @@
 import 'package:community_surveillance/features/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../widgets/input_form.dart';
 import '../bloc/auth_bloc.dart';
@@ -107,16 +106,33 @@ class _AuthViewState extends State<AuthView> {
                 ),
                 const SizedBox(height: 50),
                 Center(
-                    child:
-                        ButtonWidget(onPressed: () => context.push('/home'))),
+                  child: ButtonWidget(
+                    onPressed: () => context.read<AuthBloc>().add(
+                          const Submitted(
+                            'gustavo@teste.com',
+                            'Gavf#778830',
+                          ),
+                        ),
+                  ),
+                ),
                 const SizedBox(height: 50),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Novo Usuário? "),
-                    Text(
-                      "Cadastre-se",
-                      style: TextStyle(color: Color(0xFF972DA8)),
+                    const Text("Novo Usuário? "),
+                    TextButton(
+                      child: const Text(
+                        "Cadastre-se",
+                        style: TextStyle(color: Color(0xFF972DA8)),
+                      ),
+                      onPressed: () => context.read<AuthBloc>().add(
+                            const Registered(
+                              'Gustavo',
+                              'gustavo2@teste.com',
+                              'Gavf#778830',
+                              'Gavf#778830',
+                            ),
+                          ),
                     ),
                   ],
                 ),

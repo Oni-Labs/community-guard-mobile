@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:community_surveillance/core/api/rest_client.dart';
+import 'package:community_guard_mobile/core/api/rest_client.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';

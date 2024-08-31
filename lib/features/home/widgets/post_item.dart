@@ -72,13 +72,11 @@ class PostItem extends StatelessWidget {
                           return [
                             PopupMenuItem(
                               child: const Text('Informações'),
-                              onTap: () {
-                              },
+                              onTap: () {},
                             ),
                             PopupMenuItem(
                               child: const Text('Denunciar'),
-                              onTap: () {
-                              },
+                              onTap: () {},
                             ),
                           ];
                         },

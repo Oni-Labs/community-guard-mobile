@@ -1,5 +1,7 @@
 part of 'startup_bloc.dart';
 
-sealed class StartupEvent {
-  const StartupEvent();
+@freezed
+class StartupEvent with _$StartupEvent {
+  const factory StartupEvent.started() = Started;
+  const factory StartupEvent.read() = Read;
 }

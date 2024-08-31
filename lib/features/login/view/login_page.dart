@@ -1,30 +1,30 @@
-import 'package:community_surveillance/features/widgets/button_widget.dart';
+import 'package:community_guard_mobile/features/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../widgets/input_form.dart';
-import '../bloc/auth_bloc.dart';
+import '../bloc/login_bloc.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AuthBloc(),
-      child: const AuthView(),
+      create: (_) => LoginBloc(),
+      child: const LoginView(),
     );
   }
 }
 
-class AuthView extends StatefulWidget {
-  const AuthView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<AuthView> createState() => _AuthViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _AuthViewState extends State<AuthView> {
+class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isEmailValid = false;
@@ -107,12 +107,12 @@ class _AuthViewState extends State<AuthView> {
                 const SizedBox(height: 50),
                 Center(
                   child: ButtonWidget(
-                    onPressed: () => context.read<AuthBloc>().add(
-                          const Submitted(
-                            'gustavo@teste.com',
-                            'Gavf#778830',
-                          ),
-                        ),
+                    onPressed: () => context.read<LoginBloc>().add(
+                      const LoginEvent.submitted(
+                          email: 'gustaf_alfredo@outlook.com',
+                          password: 'Gavf#778830'
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 50),
@@ -125,14 +125,14 @@ class _AuthViewState extends State<AuthView> {
                         "Cadastre-se",
                         style: TextStyle(color: Color(0xFF972DA8)),
                       ),
-                      onPressed: () => context.read<AuthBloc>().add(
-                            const Registered(
-                              'Gustavo',
-                              'gustavo2@teste.com',
-                              'Gavf#778830',
-                              'Gavf#778830',
-                            ),
-                          ),
+                      onPressed: () => context.read<LoginBloc>().add(
+                        const LoginEvent.registered(
+                          name: 'gustaf',
+                          email: 'gustaf_alfredo@outlook.com',
+                          password: 'Gavf#778830',
+                          confirmPassword: 'Gavf#778830',
+                        ),
+                      ),
                     ),
                   ],
                 ),

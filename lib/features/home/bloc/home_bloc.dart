@@ -21,9 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(isSaved: state.isSaved ? false : true));
   }
 
-  Future<void> onCompletePost(HomeEvent event, Emitter<HomeState> emit) async {
-  }
+  Future<void> onCompletePost(HomeEvent event, Emitter<HomeState> emit) async {}
 
-  Future<void> onSharePost(HomeEvent event, Emitter<HomeState> emit) async {
-  }
+  Future<void> onSharePost(HomeEvent event, Emitter<HomeState> emit) async {}
 }

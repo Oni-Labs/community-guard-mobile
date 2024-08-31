@@ -1,4 +1,4 @@
-import 'package:community_surveillance/router.dart';
+import 'package:community_guard_mobile/router.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {

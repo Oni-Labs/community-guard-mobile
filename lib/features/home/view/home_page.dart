@@ -1,4 +1,4 @@
-import 'package:community_surveillance/features/home/bloc/home_bloc.dart';
+import 'package:community_guard_mobile/features/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -97,7 +97,6 @@ class HomeContentPage extends StatelessWidget {
             SliverAppBar(
               backgroundColor: Colors.white,
               title: const Text('Publicações'),
-
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -121,11 +120,10 @@ class HomeContentPage extends StatelessWidget {
               ),
               toolbarHeight: 100,
               leadingWidth: 80,
-
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                    (context, index) {
+                (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: PostItem(
@@ -144,4 +142,3 @@ class HomeContentPage extends StatelessWidget {
     );
   }
 }
-

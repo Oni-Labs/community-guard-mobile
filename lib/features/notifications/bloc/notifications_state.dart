@@ -1,5 +1,6 @@
 part of 'notifications_bloc.dart';
 
-class NotificationsState {
-  const NotificationsState();
+@freezed
+class NotificationsState with _$NotificationsState {
+  const factory NotificationsState.initial() = _Initial;
 }

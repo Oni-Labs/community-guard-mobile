@@ -1,5 +1,6 @@
 part of 'notifications_bloc.dart';
 
-sealed class NotificationsEvent {
-  const NotificationsEvent();
+@freezed
+class NotificationsEvent with _$NotificationsEvent {
+  const factory NotificationsEvent.started() = _Started;
 }

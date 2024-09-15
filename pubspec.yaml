@@ -87,6 +87,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   fluid_dialog: ^2.0.0
   another_flutter_splash_screen: ^1.2.1
+  email_validator: ^3.0.0
 #  json_annotation: ^4.9.0
 
 dev_dependencies:

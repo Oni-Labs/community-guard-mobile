@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({super.key, required this.onPressed});
+  const ButtonWidget({super.key, required this.onPressed, required this.text});
   final VoidCallback onPressed;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class ButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
       ),
       onPressed: onPressed,
-      child: const Text("Entrar"),
+      child: Text(text),
     );
   }
 }

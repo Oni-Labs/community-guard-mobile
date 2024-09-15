@@ -37,7 +37,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     try {
-      emit(const LoginState.loading());
+      emit(state.copyWith(status: const LoginStatus.loading()));
       final client = ApiUtil.getRestClient();
       final request = await client.login(
         email: event.email,
@@ -51,17 +51,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
 
         await _repository.setUser(request.data);
-        emit(LoginState.success(user: user));
+        emit(state.copyWith(status: LoginStatus.logged(user: user), isLogged: true));
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.badResponse) {
         final data = e.response?.data != null
             ? GenericResponse.fromJson(e.response!.data, (json) => null)
             : null;
-        emit(LoginState.failure(
-            data?.message ?? 'O servidor envou uma resposta inválida'));
+        emit(state.copyWith(status: const LoginStatus.failure(error: 'O servidor envou uma resposta inválida')));
       } else {
-        emit(const LoginState.failure('Occorreu um erro inesperado'));
+        emit(state.copyWith(status: const LoginStatus.failure(error: 'Occorreu um erro inesperado')));
       }
     }
   }
@@ -70,14 +69,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Registered event,
     Emitter<LoginState> emit,
   ) async {
-    emit(const LoginState.loading());
+    emit(state.copyWith(status: const LoginStatus.loading()));
     try {
       final client = ApiUtil.getRestClient();
       final request = await client.register(
         name: event.name,
         email: event.email,
         password: event.password,
-        confirmPassword: event.confirmPassword,
+        passwordConfirmation: event.confirmPassword,
       );
       if (request.response.statusCode == HttpStatus.created) {
         final user = request.data;
@@ -86,11 +85,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           value: user.data?.token,
         );
         await _repository.setUser(user.data!);
-        emit(LoginState.success(user: user.data!));
+        emit(state.copyWith(status: LoginStatus.logged(user: user.data!), isLogged: true));
       }
     } on DioException catch (e, stack) {
       talker.handle(e, stack);
-      emit(const LoginState.failure('Erro ao tentar criar o usuário'));
+      emit(state.copyWith(status: const LoginStatus.failure(error: 'Erro ao tentar criar o usuário')));
     }
   }
 }

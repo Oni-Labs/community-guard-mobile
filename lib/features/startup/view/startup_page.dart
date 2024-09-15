@@ -25,9 +25,9 @@ class StartupView extends StatelessWidget {
     return BlocListener<StartupBloc, StartupState>(
       listener: (context, state) {
         if (state.status is StatusLogged) {
-          context.push('/home');
+          context.go('/home');
         } else if (state.status is StatusGuest) {
-          context.push('/login');
+          context.go('/login');
         }
       },
       child: BlocBuilder<StartupBloc, StartupState>(

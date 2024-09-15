@@ -14,7 +14,7 @@ class _RestClient implements RestClient {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'http://localhost:3000/';
+    baseUrl ??= 'https://ef15-179-191-25-152.ngrok-free.app/api';
   }
 
   final Dio _dio;
@@ -44,7 +44,7 @@ class _RestClient implements RestClient {
     )
         .compose(
           _dio.options,
-          '/auth/login',
+          '/login',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -70,7 +70,7 @@ class _RestClient implements RestClient {
     required String name,
     required String email,
     required String password,
-    required String confirmPassword,
+    required String passwordConfirmation,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -80,7 +80,7 @@ class _RestClient implements RestClient {
       'name': name,
       'email': email,
       'password': password,
-      'confirm_password': confirmPassword,
+      'password_confirmation': passwordConfirmation,
     };
     final _options =
         _setStreamType<HttpResponse<GenericResponse<User>>>(Options(
@@ -91,7 +91,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              '/auth/register',
+              '/register',
               queryParameters: queryParameters,
               data: _data,
             )

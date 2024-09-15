@@ -7,12 +7,12 @@ import 'request/generic_response.dart';
 
 part 'rest_client.g.dart';
 
-@RestApi(baseUrl: 'http://localhost:3000/')
+@RestApi(baseUrl: 'https://ef15-179-191-25-152.ngrok-free.app/api')
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   // Login
-  @POST('/auth/login')
+  @POST('/login')
   @Headers({'Accept': 'application/json'})
   @FormUrlEncoded()
   Future<HttpResponse<User>> login({
@@ -21,13 +21,13 @@ abstract class RestClient {
   });
 
   // Register
-  @POST('/auth/register')
+  @POST('/register')
   @Headers({'Accept': 'application/json'})
   @FormUrlEncoded()
   Future<HttpResponse<GenericResponse<User>>> register({
     @Field() required String name,
     @Field() required String email,
     @Field() required String password,
-    @Field('confirm_password') required String confirmPassword,
+    @Field('password_confirmation') required String passwordConfirmation,
   });
 }

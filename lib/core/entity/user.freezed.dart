@@ -20,7 +20,6 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  @Id(assignable: true)
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -43,7 +42,7 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {@Id(assignable: true) int id,
+      {int id,
       String name,
       String email,
       @JsonKey(name: 'profile_photo') String? profilePhoto,
@@ -104,7 +103,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@Id(assignable: true) int id,
+      {int id,
       String name,
       String email,
       @JsonKey(name: 'profile_photo') String? profilePhoto,
@@ -156,10 +155,9 @@ class __$$UserImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@Entity(realClass: User)
 class _$UserImpl implements _User {
   _$UserImpl(
-      {@Id(assignable: true) required this.id,
+      {required this.id,
       required this.name,
       required this.email,
       @JsonKey(name: 'profile_photo') this.profilePhoto,
@@ -169,7 +167,6 @@ class _$UserImpl implements _User {
       _$$UserImplFromJson(json);
 
   @override
-  @Id(assignable: true)
   final int id;
   @override
   final String name;
@@ -222,7 +219,7 @@ class _$UserImpl implements _User {
 
 abstract class _User implements User {
   factory _User(
-      {@Id(assignable: true) required final int id,
+      {required final int id,
       required final String name,
       required final String email,
       @JsonKey(name: 'profile_photo') final String? profilePhoto,
@@ -231,7 +228,6 @@ abstract class _User implements User {
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
-  @Id(assignable: true)
   int get id;
   @override
   String get name;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../gen/assets.gen.dart';
 import '../bloc/home_bloc.dart';
 
 class PostItem extends StatelessWidget {
@@ -35,7 +36,7 @@ class PostItem extends StatelessWidget {
                       child: ClipRect(
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/profile.jpg',
+                            Assets.icons.profile.path,
                             width: 50,
                             height: 50,
                             fit: BoxFit.cover,
@@ -139,7 +140,7 @@ class PostItem extends StatelessWidget {
                                             ClipRect(
                                               child: ClipOval(
                                                 child: Image.asset(
-                                                  'assets/images/profile.jpg',
+                                                  Assets.icons.profile.path,
                                                   width: 30,
                                                   height: 30,
                                                   fit: BoxFit.cover,

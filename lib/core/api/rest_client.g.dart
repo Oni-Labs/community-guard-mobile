@@ -24,7 +24,7 @@ class _RestClient implements RestClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<User>> login({
+  Future<HttpResponse<GenericResponse<User>>> login({
     required String email,
     required String password,
   }) async {
@@ -36,27 +36,31 @@ class _RestClient implements RestClient {
       'email': email,
       'password': password,
     };
-    final _options = _setStreamType<HttpResponse<User>>(Options(
+    final _options =
+        _setStreamType<HttpResponse<GenericResponse<User>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
       contentType: 'application/x-www-form-urlencoded',
     )
-        .compose(
-          _dio.options,
-          '/login',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+            .compose(
+              _dio.options,
+              '/login',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late User _value;
+    late GenericResponse<User> _value;
     try {
-      _value = User.fromJson(_result.data!);
+      _value = GenericResponse<User>.fromJson(
+        _result.data!,
+        (json) => User.fromJson(json as Map<String, dynamic>),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

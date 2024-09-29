@@ -1,9 +1,9 @@
 // ignore_for_file: invalid_annotation_target
+import 'package:community_guard_mobile/core/api/response/generic_response.dart';
 import 'package:community_guard_mobile/core/entity/user.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
-import 'request/generic_response.dart';
 
 part 'rest_client.g.dart';
 
@@ -15,7 +15,7 @@ abstract class RestClient {
   @POST('/login')
   @Headers({'Accept': 'application/json'})
   @FormUrlEncoded()
-  Future<HttpResponse<User>> login({
+  Future<HttpResponse<GenericResponse<User>>> login({
     @Field() required String email,
     @Field() required String password,
   });

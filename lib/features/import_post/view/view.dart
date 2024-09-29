@@ -1,1 +1,1 @@
-export './import_post_page.dart';
+export './import_post_view.dart';

@@ -13,7 +13,6 @@ const secureStorage = FlutterSecureStorage(aOptions: _androidOptions);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await _initHive();
   Bloc.observer = TalkerBlocObserver(talker: talker);
   runApp(const App());
 }

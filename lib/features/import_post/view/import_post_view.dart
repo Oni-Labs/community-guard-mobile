@@ -65,15 +65,12 @@ class _ImportPostViewState extends State<ImportPostView> {
         } else {
           return CustomScrollView(
             slivers: [
-              SliverAppBar(
-                title: const Text('Publicar postagem'),
+              const SliverAppBar(
+                automaticallyImplyLeading: false, // Remove o ícone de voltar
+                title: Text('Publicar postagem'),
                 backgroundColor: Colors.white,
                 elevation: 0,
                 centerTitle: true,
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () => {},
-                ),
               ),
               SliverToBoxAdapter(
                 child: Padding(

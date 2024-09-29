@@ -171,7 +171,7 @@ class _ProfileViewState extends State<ProfileView>
         ),
         FilledButton(
           onPressed: () {},
-          child: const Text('Editar perfil'),
+          child: const Text('Compartilhar perfil'),
         ),
         const Icon(LucideIcons.userPlus),
       ],

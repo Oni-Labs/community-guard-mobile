@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/widgets/custom_card.dart';
 import '../../../core/widgets/custom_grid_view.dart';
 import '../../../core/widgets/input_form.dart';
-import '../../../core/widgets/outlined_text_field.dart';
 import '../../../gen/assets.gen.dart';
 import '../search.dart';
 
@@ -45,7 +44,9 @@ class SearchView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false, // Remove o ícone de voltar
             title: const Text('Pesquisar'),
+            centerTitle: true,
           ),
           body: CustomScrollView(
             slivers: [

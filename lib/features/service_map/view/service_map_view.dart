@@ -8,11 +8,11 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/entity/point.dart';
 import '../../../core/entity/service_order.dart';
-import '../../../core/entity/service_stage.dart';
 import '../service_map.dart';
 
 class ServiceMapView extends StatefulWidget {
@@ -96,9 +96,6 @@ class _ServiceMapViewState extends State<ServiceMapView>
         //     .contains(e.stage.targetId))
         //     .toList();
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Community-Guard'),
-          ),
           body: FlutterMap(
             mapController: _mapController.mapController,
             options: const MapOptions(
@@ -114,6 +111,19 @@ class _ServiceMapViewState extends State<ServiceMapView>
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Material(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      shadowColor: Colors.black38,
+                      elevation: 12,
+                      child: IconButton(
+                        onPressed: _getCurrentLocation,
+                        icon: const Icon(LucideIcons.filter),
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Material(

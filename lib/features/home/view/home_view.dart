@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 
-import '../../import_post/view/import_post_page.dart';
-import '../../import_post/view/import_post_view.dart';
-import '../../profile/view/profile_page.dart';
-import '../../search/view/search_page.dart';
-import '../../service_map/view/service_map_page.dart';
-import '../widgets/home_content_page.dart';
+import '../../../core/router.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({super.key, required this.navigator});
+
+  final Widget navigator;
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 0;
+  final box = Hive.box('settings');
 
-  final _pages = <Widget>[
-    const HomeContentPage(),
-    const SearchPage(),
-    const ImportPostPage(),
-    const ServiceMapPage(),
-    const ProfilePage(),
-  ];
+  int _getCurrentIndex(BuildContext context) {
+    final route = GoRouterState.of(context);
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (route.uri.pathSegments.first == 'feed') {
+      return 0;
+    } else if (route.uri.pathSegments.first == 'profile') {
+      return 2;
+    }
+
+    return 1;
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: widget.navigator,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.deepPurple,
         showSelectedLabels: false,
@@ -64,8 +66,26 @@ class _HomeViewState extends State<HomeView> {
             label: 'Settings',
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        currentIndex: _getCurrentIndex(context),
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              const FeedRoute().go(context);
+              break;
+            case 1:
+              const ExploreRoute().go(context);
+              break;
+            case 2:
+              const CreatePostRoute().go(context);
+              break;
+            case 3:
+              const ServiceMapRoute().go(context);
+              break;
+            case 4:
+              const ProfileRoute().go(context);
+              break;
+          }
+        },
       ),
     );
   }

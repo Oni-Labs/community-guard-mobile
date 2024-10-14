@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../../../gen/assets.gen.dart';
 import '../bloc/home_bloc.dart';
 
-class HomeContentPage extends StatelessWidget {
-  const HomeContentPage({super.key});
+class FeedPage extends StatelessWidget {
+  const FeedPage({super.key});
 
   @override
   Widget build(BuildContext context) {

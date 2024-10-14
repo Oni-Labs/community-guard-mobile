@@ -21,11 +21,17 @@ class _HomeViewState extends State<HomeView> {
 
     if (route.uri.pathSegments.first == 'feed') {
       return 0;
-    } else if (route.uri.pathSegments.first == 'profile') {
+    } else if (route.uri.pathSegments.first == 'explore') {
+      return 1;
+    } else if (route.uri.pathSegments.first == 'create-post') {
       return 2;
+    } else if (route.uri.pathSegments.first == 'service-map') {
+      return 3;
+    } else if (route.uri.pathSegments.first == 'profile') {
+      return 4;
     }
 
-    return 1;
+    return 0;
   }
 
   @override

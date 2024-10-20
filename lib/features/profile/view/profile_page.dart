@@ -193,9 +193,9 @@ class _ProfileViewState extends State<ProfileView>
       },
     );
   }
-
 }
-  class _ProfileStat extends StatelessWidget {
+
+class _ProfileStat extends StatelessWidget {
   final String title;
   final String subtitle;
 

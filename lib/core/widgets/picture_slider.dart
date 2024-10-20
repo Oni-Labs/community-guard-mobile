@@ -3,43 +3,98 @@ import 'dart:io';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../features/create_post/bloc/create_post_bloc.dart';
 import 'image_item.dart';
 import 'image_picker_origin.dart';
 import 'image_picker_origin_dialog.dart';
 import 'material_error_text.dart';
 
-class VehicleInOutPicturesSlider extends StatefulWidget {
-  const VehicleInOutPicturesSlider({
+class PostPicturesSlider extends StatefulWidget {
+  const PostPicturesSlider({
     super.key,
     this.recordId,
-    this.validator,
     this.enabled = true,
   });
 
   final int? recordId;
   final bool enabled;
-  final FormFieldValidator<List<XFile>>? validator;
 
   @override
-  VehicleInOutPicturesSliderState createState() =>
-      VehicleInOutPicturesSliderState();
+  PostPicturesSliderState createState() => PostPicturesSliderState();
 }
 
-class VehicleInOutPicturesSliderState
-    extends State<VehicleInOutPicturesSlider> {
+class PostPicturesSliderState extends State<PostPicturesSlider> {
   final _picker = ImagePicker();
 
-  late FormFieldState<List<XFile>> _state;
-  final List<XFile> _images = [];
-
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    return BlocBuilder<CreatePostBloc, CreatePostState>(
+      builder: (context, state) {
+        // final hasError = state is CreatePostErrorState;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       for (final evidence in state.evidences)
+            //         ImageItem(
+            //           image: evidence,
+            //           onTap: () {},
+            //           onLongPress: () => _showRemoveAlert(evidence),
+            //         ),
+            //       if (widget.enabled) _buildAddButton(),
+            //     ],
+            //   ),
+            // ),
+            // _buildErrorText(hasError),
+          ],
+        );
+      },
+    );
   }
+
+  Widget _buildAddButton() {
+    return InkWell(
+      onTap: _pickImages,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        margin: const EdgeInsets.only(right: 0.0),
+        width: 90,
+        height: 90,
+        decoration: _getDecoration(),
+        child: const Icon(
+          Icons.add_rounded,
+          size: 32,
+        ),
+      ),
+    );
+  }
+
+  BoxDecoration _getDecoration() {
+    return BoxDecoration(
+      border: Border.all(
+        color: Theme.of(context).colorScheme.outline,
+      ),
+      borderRadius: BorderRadius.circular(8),
+    );
+  }
+
+  // Widget _buildErrorText(bool hasError) {
+  //   if (!hasError) return const SizedBox();
+  //
+  //   return const Padding(
+  //     padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
+  //     child: MaterialErrorText('Erro ao processar as imagens.'),
+  //   );
+  // }
 
   Future<void> _pickImages() async {
     final origin = await showDialog<ImagePickerOrigin>(
@@ -47,35 +102,41 @@ class VehicleInOutPicturesSliderState
       builder: (context) => const ImagePickerOriginDialog(),
     );
 
-    if (origin == ImagePickerOrigin.files) {
-      final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg', 'png', 'heif', 'heic'],
+    if (origin == null) return;
+
+    List<XFile> pickedFiles = [];
+
+    switch (origin) {
+      case ImagePickerOrigin.files:
+        final result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['jpg', 'png', 'heif', 'heic'],
+        );
+        if (result?.files.single.path != null) {
+          pickedFiles = [XFile(result!.files.single.path!)];
+        }
+        break;
+      case ImagePickerOrigin.camera:
+        final image = await _picker.pickImage(source: ImageSource.camera);
+        if (image != null) pickedFiles = [image];
+        break;
+      case ImagePickerOrigin.gallery:
+        pickedFiles = await _picker.pickMultiImage();
+        break;
+    }
+
+    if (pickedFiles.isNotEmpty) {
+      final state = context.read<CreatePostBloc>().state;
+      // (state.evidences).addAll(pickedFiles);
+      context.read<CreatePostBloc>().add(
+        CreatePostEvent.addedImage(
+          pickedFiles.map((file) => File(file.path)).toList(),
+        ),
       );
-
-      if (result != null) {
-        final file = XFile(result.files.single.path!);
-        _images.add(file);
-        _state.didChange(_images);
-      }
-    } else if (origin == ImagePickerOrigin.camera) {
-      final image = await _picker.pickImage(source: ImageSource.camera);
-
-      if (image != null) {
-        _images.add(image);
-        _state.didChange(_images);
-      }
-    } else if (origin == ImagePickerOrigin.gallery) {
-      final images = await _picker.pickMultiImage();
-
-      if (images.isNotEmpty) {
-        _images.addAll(images);
-        _state.didChange(_images);
-      }
     }
   }
 
-  Future<void> _showRemoveAlert(XFile file) async {
+  Future<void> _showRemoveAlert(XFile image) async {
     final result = await showOkCancelAlertDialog(
       context: context,
       title: 'Apagar imagem',
@@ -85,93 +146,22 @@ class VehicleInOutPicturesSliderState
     );
 
     if (result == OkCancelResult.ok) {
-      await _removeImage(file);
+      await _removeImage(image);
     }
   }
 
   Future<void> _removeImage(XFile image) async {
     try {
+      context.read<CreatePostBloc>().add(
+        CreatePostEvent.removedImage(File(image.path)),
+      );
+
       await File(image.path).delete();
     } catch (e) {
       debugPrint(e.toString());
     } finally {
-      _images.remove(image);
-      _state.didChange(_images);
+      final state = context.read<CreatePostBloc>().state;
+      (state.evidences).remove(image);
     }
-  }
-
-  BoxDecoration _getDecoration() {
-    final colorScheme = Theme.of(context).colorScheme;
-    return BoxDecoration(
-      border: Border.all(
-          color: _state.hasError ? colorScheme.error : colorScheme.outline),
-      borderRadius: BorderRadius.circular(8),
-    );
-  }
-
-  Widget _buildAddButton() {
-    final colorScheme = Theme.of(context).colorScheme;
-    return InkWell(
-      onTap: () => _pickImages(),
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        margin: const EdgeInsets.only(right: 0.0),
-        child: Container(
-          width: 90,
-          height: 90,
-          decoration: _getDecoration(),
-          child: Icon(
-            Icons.add_rounded,
-            size: 32,
-            color: _state.hasError ? colorScheme.error : colorScheme.outline,
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FormField<List<XFile>>(
-      initialValue: const [],
-      validator: widget.validator,
-      builder: (state) {
-        _state = state;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  for (final image in _state.value!)
-                    ImageItem(
-                      image: image,
-                      onTap: () => {},
-                      onLongPress: () => _showRemoveAlert(image),
-                    ),
-                  if (widget.enabled) _buildAddButton(),
-                ],
-              ),
-            ),
-            AnimatedCrossFade(
-              duration: const Duration(milliseconds: 200),
-              crossFadeState: state.hasError
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst,
-              firstChild: const SizedBox(),
-              secondChild: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
-                child: MaterialErrorText(state.errorText ?? ''),
-              ),
-            )
-          ],
-        );
-      },
-    );
   }
 }

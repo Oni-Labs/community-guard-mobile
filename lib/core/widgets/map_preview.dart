@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ServiceMapPreview extends StatelessWidget {
   const ServiceMapPreview({super.key, required this.location});
@@ -15,31 +14,25 @@ class ServiceMapPreview extends StatelessWidget {
         height: 150,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: FlutterMap(
-            options: MapOptions(
-              initialZoom: 16,
-              initialCenter: location,
-              interactionOptions: const InteractionOptions(
-                flags: InteractiveFlag.none,
-              ),
+          child: GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: location,
+              zoom: 16,
             ),
-            children: [
-              TileLayer(
-                // Display map tiles from any source
-                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                // OSMF's Tile Server
-                maxNativeZoom: 19,
+            markers: {
+              Marker(
+                markerId: const MarkerId('preview_location'),
+                position: location,
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueRed,
+                ),
               ),
-              MarkerLayer(
-                markers: [
-                  Marker(
-                    point: location,
-                    child: const Icon(Icons.circle),
-                  ),
-                ],
-              ),
-              const Scalebar(alignment: Alignment.bottomRight),
-            ],
+            },
+            zoomControlsEnabled: false,
+            scrollGesturesEnabled: false,
+            rotateGesturesEnabled: false,
+            tiltGesturesEnabled: false,
+            mapToolbarEnabled: false,
           ),
         ),
       ),

@@ -13,7 +13,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => HomeBloc(),
-      child: HomeView(navigator: child,),
+      child: HomeView(
+        navigator: child,
+      ),
     );
   }
 }

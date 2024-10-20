@@ -21,7 +21,8 @@ class _ServiceMapViewState extends State<ServiceMapView> {
   }
 
   void _goToCurrentLocation(Position? position) {
-    mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(position!.latitude, position.longitude)));
+    mapController?.animateCamera(
+        CameraUpdate.newLatLng(LatLng(position!.latitude, position.longitude)));
   }
 
   @override
@@ -38,28 +39,28 @@ class _ServiceMapViewState extends State<ServiceMapView> {
         return Scaffold(
           body: state.position != null
               ? Stack(
-            children: [
-              GoogleMap(
-                initialCameraPosition: initialPosition,
-                onMapCreated: _onMapCreated,
-                markers: markers,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                mapToolbarEnabled: true,
-                padding: const EdgeInsets.only(top: 40),
-              ),
-              Positioned(
-                top: 60,
-                right: 20,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    _goToCurrentLocation(state.position);
-                  },
-                  child: const Icon(Icons.my_location),
-                ),
-              ),
-            ],
-          )
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: initialPosition,
+                      onMapCreated: _onMapCreated,
+                      markers: markers,
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: false,
+                      mapToolbarEnabled: true,
+                      padding: const EdgeInsets.only(top: 40),
+                    ),
+                    Positioned(
+                      top: 60,
+                      right: 20,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          _goToCurrentLocation(state.position);
+                        },
+                        child: const Icon(Icons.my_location),
+                      ),
+                    ),
+                  ],
+                )
               : const Center(child: CircularProgressIndicator()),
         );
       },

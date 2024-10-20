@@ -2,39 +2,38 @@ import 'package:community_guard_mobile/core/widgets/input_form.dart';
 import 'package:community_guard_mobile/core/widgets/outlined_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../core/widgets/map_preview.dart';
 import '../../../core/widgets/picture_slider.dart';
-import '../bloc/import_post_bloc.dart';
+import '../bloc/create_post_bloc.dart';
 
-class ImportPostView extends StatefulWidget {
-  const ImportPostView({
+class CreatePostView extends StatefulWidget {
+  const CreatePostView({
     super.key,
   });
 
   @override
-  State<ImportPostView> createState() => _ImportPostViewState();
+  State<CreatePostView> createState() => _CreatePostViewState();
 }
 
-class _ImportPostViewState extends State<ImportPostView> {
+class _CreatePostViewState extends State<CreatePostView> {
   final _formKey = GlobalKey<FormState>();
-  final _dateTimeController = TextEditingController();
-  final _driverController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   @override
   void dispose() {
     super.dispose();
-    _dateTimeController.dispose();
-    _driverController.dispose();
+    _titleController.dispose();
+    _descriptionController.dispose();
   }
 
   Widget _buildSaveButton() {
@@ -44,7 +43,18 @@ class _ImportPostViewState extends State<ImportPostView> {
       padding: const EdgeInsets.all(16)
           .copyWith(bottom: bottomPadding > 0.0 ? bottomPadding : 32),
       child: FilledButton.icon(
-        onPressed: () {},
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
+            context.read<CreatePostBloc>().add(CreatePostEvent.submitted(
+                  title: _titleController.text,
+                  description: _descriptionController.text,
+                  files: const [],
+                  latitude: 0,
+                  longitude: 0,
+                ));
+          }
+        },
         icon: const Icon(Icons.save),
         label: const Text('Salvar'),
         style: FilledButton.styleFrom(
@@ -54,19 +64,19 @@ class _ImportPostViewState extends State<ImportPostView> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ImportPostBloc, ImportPostState>(
+    return BlocConsumer<CreatePostBloc, CreatePostState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (state == 2) {
+        if (state.status is GeoPointLoading) {
           return const Center(child: CircularProgressIndicator());
         } else {
           return CustomScrollView(
             slivers: [
               const SliverAppBar(
-                automaticallyImplyLeading: false, // Remove o ícone de voltar
+                automaticallyImplyLeading: false,
+                // Remove o ícone de voltar
                 title: Text('Publicar postagem'),
                 backgroundColor: Colors.white,
                 elevation: 0,
@@ -80,28 +90,32 @@ class _ImportPostViewState extends State<ImportPostView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InputForm(controller: _dateTimeController, label: 'Titulo'),
+                        InputForm(
+                          controller: _titleController,
+                          label: 'Titulo',
+                        ),
                         OutlinedTextField(
-                          label: 'Observação',
+                          label: 'Descrição',
                           minLines: 3,
                           maxLines: 10,
-                          controller: _driverController,
+                          controller: _descriptionController,
                           keyboardType: TextInputType.multiline,
                         ),
                         const Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: VehicleInOutPicturesSlider(
+                          child: PostPicturesSlider(
                             enabled: true,
                             // key: _picturesSliderKey,
                             // recordId: state.record?.id,
                           ),
                         ),
-                        const ServiceMapPreview(
-                          location: LatLng(
-                            15.8000,
-                            -43.2500,
+                        if (state.position != null)
+                          ServiceMapPreview(
+                            location: LatLng(
+                              state.position!.latitude,
+                              state.position!.longitude,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),

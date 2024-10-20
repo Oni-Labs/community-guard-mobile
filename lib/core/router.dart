@@ -1,6 +1,6 @@
+import 'package:community_guard_mobile/features/create_post/view/create_post_page.dart';
 import 'package:community_guard_mobile/features/home/view/home_page.dart';
 import 'package:community_guard_mobile/features/home/widgets/home_content_page.dart';
-import 'package:community_guard_mobile/features/import_post/view/import_post_page.dart';
 import 'package:community_guard_mobile/features/profile/view/profile_page.dart';
 import 'package:community_guard_mobile/features/search/view/search_page.dart';
 import 'package:community_guard_mobile/features/service_map/view/service_map_page.dart';
@@ -25,13 +25,41 @@ final GoRouter router = GoRouter(
   observers: [TalkerRouteObserver(talker)],
 );
 
+CustomTransitionPage<void> customTransitionPageBuilder(
+    BuildContext context,
+    GoRouterState state,
+    Widget child,
+    ) {
+  return CustomTransitionPage<void>(
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.easeInOut;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var offsetAnimation = animation.drive(tween);
+
+      return SlideTransition(
+        position: offsetAnimation,
+        child: child,
+      );
+    },
+  );
+}
+
 @TypedGoRoute<StartupRoute>(path: '/')
 class StartupRoute extends GoRouteData {
   const StartupRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const StartupPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const StartupPage(),
+    );
+  }
 }
 
 @TypedShellRoute<HomeShellRoute>(
@@ -57,35 +85,67 @@ class HomeShellRoute extends ShellRouteData {
 
 class FeedRoute extends GoRouteData {
   const FeedRoute();
+
   @override
-  Widget build(BuildContext context, GoRouterState state) => const FeedPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const FeedPage(),
+    );
+  }
 }
 
 class ExploreRoute extends GoRouteData {
   const ExploreRoute();
+
   @override
-  Widget build(BuildContext context, GoRouterState state) => const SearchPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const SearchPage(),
+    );
+  }
 }
 
 class CreatePostRoute extends GoRouteData {
   const CreatePostRoute();
+
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const ImportPostPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const CreatePostPage(),
+    );
+  }
 }
 
 class ServiceMapRoute extends GoRouteData {
   const ServiceMapRoute();
+
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const ServiceMapPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const ServiceMapPage(),
+    );
+  }
 }
 
 class ProfileRoute extends GoRouteData {
   const ProfileRoute();
+
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const ProfilePage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const ProfilePage(),
+    );
+  }
 }
 
 @TypedGoRoute<LoginRoute>(path: '/login')
@@ -93,5 +153,11 @@ class LoginRoute extends GoRouteData {
   const LoginRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const LoginPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const LoginPage(),
+    );
+  }
 }

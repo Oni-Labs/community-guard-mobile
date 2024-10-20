@@ -14,7 +14,7 @@ class _RestClient implements RestClient {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://ef15-179-191-25-152.ngrok-free.app/api';
+    baseUrl ??= 'http://127.0.0.1:8000/api';
   }
 
   final Dio _dio;
@@ -110,6 +110,73 @@ class _RestClient implements RestClient {
       _value = GenericResponse<User>.fromJson(
         _result.data!,
         (json) => User.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<GenericResponse<dynamic>>> createPost({
+    required String title,
+    required String description,
+    required List<File> file,
+    required double latitude,
+    required double longitude,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'title',
+      title,
+    ));
+    _data.fields.add(MapEntry(
+      'description',
+      description,
+    ));
+    _data.files.addAll(file.map((i) => MapEntry(
+        'file',
+        MultipartFile.fromFileSync(
+          i.path,
+          filename: i.path.split(Platform.pathSeparator).last,
+        ))));
+    _data.fields.add(MapEntry(
+      'latitude',
+      latitude.toString(),
+    ));
+    _data.fields.add(MapEntry(
+      'longitude',
+      longitude.toString(),
+    ));
+    final _options =
+        _setStreamType<HttpResponse<GenericResponse<dynamic>>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/publication',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late GenericResponse<dynamic> _value;
+    try {
+      _value = GenericResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

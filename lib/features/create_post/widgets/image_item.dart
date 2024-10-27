@@ -9,12 +9,12 @@ class ImageItem extends StatefulWidget {
     super.key,
     required this.image,
     this.onTap,
-    this.onLongPress,
+    this.onRemove,
   });
 
-  final XFile image;
+  final File image;
   final GestureTapCallback? onTap;
-  final GestureLongPressCallback? onLongPress;
+  final GestureTapCallback? onRemove;
 
   @override
   State<ImageItem> createState() => _ImageItemState();
@@ -29,17 +29,43 @@ class _ImageItemState extends State<ImageItem> {
   }
 
   Widget _buildThumbnail() {
-    return SizedBox(
-      width: 90,
-      height: 90,
-      child: widget.image.path.isPDFFileName
-          ? const Center(
-        child: Icon(Icons.picture_as_pdf),
-      )
-          : Image.file(
-        File(widget.image.path),
-        fit: BoxFit.cover,
-      ),
+    return Stack(
+      alignment: Alignment.topRight,
+      children: [
+        SizedBox(
+          width: 90,
+          height: 90,
+          child: widget.image.path.isPDFFileName
+              ? const Center(
+            child: Icon(Icons.picture_as_pdf),
+          )
+              : Image.file(
+            File(widget.image.path),
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          top: 1,
+          right: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            width: 30,
+            height: 30,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              onPressed: widget.onRemove,
+              icon: const Icon(
+                Icons.delete,
+                size: 18,
+              ),
+              color: Colors.redAccent,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -48,9 +74,7 @@ class _ImageItemState extends State<ImageItem> {
     return Container(
       margin: const EdgeInsets.only(right: 16.0),
       child: GestureDetector(
-        // borderRadius: BorderRadius.circular(8.0),
         onTap: widget.onTap,
-        onLongPress: widget.onLongPress,
         child: Container(
           width: 90,
           height: 90,

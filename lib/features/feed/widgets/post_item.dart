@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../gen/assets.gen.dart';
-import '../bloc/home_bloc.dart';
+import '../../home/bloc/home_bloc.dart';
 
 class PostItem extends StatelessWidget {
   const PostItem(
@@ -97,7 +97,6 @@ class PostItem extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton(
                         onPressed: () {
-                          context.read<HomeBloc>().add(const FavoritePost());
                         },
                         icon: isFavorite
                             ? const Icon(
@@ -182,7 +181,6 @@ class PostItem extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     onPressed: () {
-                      context.read<HomeBloc>().add(const SavePost());
                     },
                     icon: isSaved
                         ? const Icon(

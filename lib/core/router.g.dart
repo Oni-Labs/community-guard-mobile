@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
       $startupRoute,
       $homeShellRoute,
       $loginRoute,
+      $imageViewRoute,
     ];
 
 RouteBase get $startupRoute => GoRouteData.$route(
@@ -43,10 +44,6 @@ RouteBase get $homeShellRoute => ShellRouteData.$route(
           factory: $FeedRouteExtension._fromState,
         ),
         GoRouteData.$route(
-          path: '/explore',
-          factory: $ExploreRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
           path: '/create-post',
           factory: $CreatePostRouteExtension._fromState,
         ),
@@ -71,23 +68,6 @@ extension $FeedRouteExtension on FeedRoute {
 
   String get location => GoRouteData.$location(
         '/feed',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $ExploreRouteExtension on ExploreRoute {
-  static ExploreRoute _fromState(GoRouterState state) => const ExploreRoute();
-
-  String get location => GoRouteData.$location(
-        '/explore',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -163,6 +143,33 @@ extension $LoginRouteExtension on LoginRoute {
 
   String get location => GoRouteData.$location(
         '/login',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $imageViewRoute => GoRouteData.$route(
+      path: '/images/view',
+      factory: $ImageViewRouteExtension._fromState,
+    );
+
+extension $ImageViewRouteExtension on ImageViewRoute {
+  static ImageViewRoute _fromState(GoRouterState state) => ImageViewRoute(
+        path: state.uri.queryParameters['path'],
+      );
+
+  String get location => GoRouteData.$location(
+        '/images/view',
+        queryParams: {
+          if (path != null) 'path': path,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

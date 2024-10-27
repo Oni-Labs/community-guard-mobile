@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:community_guard_mobile/core/widgets/input_form.dart';
 import 'package:community_guard_mobile/core/widgets/outlined_text_field.dart';
+import 'package:community_guard_mobile/features/create_post/widgets/map_preview_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../core/widgets/map_preview.dart';
-import '../../../core/widgets/picture_slider.dart';
+import '../widgets/map_preview.dart';
+import '../widgets/picture_slider.dart';
 import '../bloc/create_post_bloc.dart';
 
 class CreatePostView extends StatefulWidget {
@@ -21,6 +24,7 @@ class _CreatePostViewState extends State<CreatePostView> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+  List<File> pickedFiles = [];
 
   @override
   void initState() {
@@ -69,69 +73,82 @@ class _CreatePostViewState extends State<CreatePostView> {
     return BlocConsumer<CreatePostBloc, CreatePostState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (state.status is GeoPointLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else {
-          return CustomScrollView(
-            slivers: [
-              const SliverAppBar(
-                automaticallyImplyLeading: false,
-                // Remove o ícone de voltar
-                title: Text('Publicar postagem'),
-                backgroundColor: Colors.white,
-                elevation: 0,
-                centerTitle: true,
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InputForm(
-                          controller: _titleController,
-                          label: 'Titulo',
-                        ),
-                        OutlinedTextField(
-                          label: 'Descrição',
-                          minLines: 3,
-                          maxLines: 10,
-                          controller: _descriptionController,
-                          keyboardType: TextInputType.multiline,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: PostPicturesSlider(
-                            enabled: true,
-                            // key: _picturesSliderKey,
-                            // recordId: state.record?.id,
+        return CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              automaticallyImplyLeading: false,
+              title: Text('Publicar postagem'),
+              backgroundColor: Colors.white,
+              elevation: 0,
+              centerTitle: true,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InputForm(
+                        controller: _titleController,
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Insira um título'
+                            : null,
+                        label: 'Titulo',
+                      ),
+                      OutlinedTextField(
+                        label: 'Descrição',
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Insira uma descrição'
+                            : null,
+                        minLines: 3,
+                        maxLines: 10,
+                        controller: _descriptionController,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: BlocProvider.value(
+                          value: context.read<CreatePostBloc>(),
+                          child: PicturesSlider(
+                            validator: (value) => value == null || value.isEmpty
+                                ? 'Selecione uma foto'
+                                : null,
+                            title: 'Fotos',
                           ),
                         ),
-                        if (state.position != null)
-                          ServiceMapPreview(
-                            location: LatLng(
-                              state.position!.latitude,
-                              state.position!.longitude,
-                            ),
+                      ),
+                      if (state.position != null &&
+                          state.status is! GeoPointLoading)
+                        ServiceMapPreview(
+                          location: LatLng(
+                            state.position!.latitude,
+                            state.position!.longitude,
                           ),
-                      ],
-                    ),
+                        )
+                      else
+                        const ServiceMapPreviewLoading(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 8.0,
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                fillOverscroll: true,
-                child: Container(
-                  alignment: Alignment.bottomCenter,
-                  child: _buildSaveButton(),
-                ),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              fillOverscroll: true,
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: _buildSaveButton(),
               ),
-            ],
-          );
-        }
+            ),
+          ],
+        );
       },
     );
   }

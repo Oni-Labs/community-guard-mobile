@@ -7,6 +7,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../constants.dart';
+import '../entity/post.dart';
 
 part 'rest_client.g.dart';
 
@@ -25,7 +26,7 @@ abstract class RestClient {
     @Field() required String password,
   });
 
-  // Register
+  // Criar usuário
   @POST('/register')
   @Headers({'Accept': 'application/json'})
   @FormUrlEncoded()
@@ -36,6 +37,7 @@ abstract class RestClient {
     @Field('password_confirmation') required String passwordConfirmation,
   });
 
+  // Criar Publicação
   @POST('/publication')
   @Header('Accept: application/json')
   @MultiPart()
@@ -46,4 +48,12 @@ abstract class RestClient {
     @Part() required double latitude,
     @Part() required double longitude,
   });
+
+  // Pegar Publicações
+  @GET('publication')
+  Future<HttpResponse<GenericResponse<List<Post>>>> getPosts();
+
+  // Pegar Publicações do usuário
+  @GET('publication/user')
+  Future<HttpResponse<GenericResponse<List<Post>>>> getUserPosts();
 }

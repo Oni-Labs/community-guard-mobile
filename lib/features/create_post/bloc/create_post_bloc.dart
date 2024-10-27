@@ -2,24 +2,29 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:community_guard_mobile/core/api/api_util.dart';
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../helpers.dart';
 
 part 'create_post_event.dart';
+
 part 'create_post_state.dart';
+
 part 'create_post_bloc.freezed.dart';
 
 class CreatePostBloc extends Bloc<CreatePostEvent, CreatePostState> {
   CreatePostBloc() : super(const CreatePostState.initial()) {
     on<_Started>(_onStarted, transformer: droppable());
+    on<_Submitted>(_onSubmitted, transformer: droppable());
   }
 
   Future<void> _onStarted(
-      _Started event,
-      Emitter<CreatePostState> emit,
-      ) async {
+    _Started event,
+    Emitter<CreatePostState> emit,
+  ) async {
     try {
       emit(state.copyWith(status: const GeoPointStatus.loading()));
       final position = await _determinePosition();
@@ -69,5 +74,28 @@ class CreatePostBloc extends Bloc<CreatePostEvent, CreatePostState> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
+  }
+
+  Future<void> _onSubmitted(
+    _Submitted event,
+    Emitter<CreatePostState> emit,
+  ) async {
+    try {
+      final client = ApiUtil.getRestClient();
+      final response = await client.createPost(
+        title: event.title,
+        description: event.description,
+        file: event.files,
+        latitude: event.latitude,
+        longitude: event.longitude,
+      );
+
+      if (response.response.statusCode == HttpStatus.ok) {
+        talker.log('Postagem criada com sucesso');
+      }
+    } on DioException catch (e, stack) {
+      talker.handle(e, stack);
+    }
+
   }
 }

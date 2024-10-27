@@ -21,14 +21,16 @@ class _HomeViewState extends State<HomeView> {
 
     if (route.uri.pathSegments.first == 'feed') {
       return 0;
-    } else if (route.uri.pathSegments.first == 'explore') {
+    }
+    // else if (route.uri.pathSegments.first == 'explore') {
+    //   return 1;
+    // }
+    else if (route.uri.pathSegments.first == 'create-post') {
       return 1;
-    } else if (route.uri.pathSegments.first == 'create-post') {
-      return 2;
     } else if (route.uri.pathSegments.first == 'service-map') {
-      return 3;
+      return 2;
     } else if (route.uri.pathSegments.first == 'profile') {
-      return 4;
+      return 3;
     }
 
     return 0;
@@ -55,10 +57,10 @@ class _HomeViewState extends State<HomeView> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.search),
+          //   label: 'Search',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_box_outlined),
             label: 'Post',
@@ -78,16 +80,16 @@ class _HomeViewState extends State<HomeView> {
             case 0:
               const FeedRoute().go(context);
               break;
+            // case 1:
+            //   const ExploreRoute().go(context);
+            //   break;
             case 1:
-              const ExploreRoute().go(context);
-              break;
-            case 2:
               const CreatePostRoute().go(context);
               break;
-            case 3:
+            case 2:
               const ServiceMapRoute().go(context);
               break;
-            case 4:
+            case 3:
               const ProfileRoute().go(context);
               break;
           }

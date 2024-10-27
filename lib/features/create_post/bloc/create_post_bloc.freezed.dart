@@ -1669,3 +1669,582 @@ abstract class GeoPointFailure implements GeoPointStatus {
   _$$GeoPointFailureImplCopyWith<_$GeoPointFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$CreatePostStatus {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String error) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String error)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String error)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePostInitial value) initial,
+    required TResult Function(CreatePostLoading value) loading,
+    required TResult Function(CreatePostSuccess value) success,
+    required TResult Function(CreatePostError value) failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CreatePostInitial value)? initial,
+    TResult? Function(CreatePostLoading value)? loading,
+    TResult? Function(CreatePostSuccess value)? success,
+    TResult? Function(CreatePostError value)? failure,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePostInitial value)? initial,
+    TResult Function(CreatePostLoading value)? loading,
+    TResult Function(CreatePostSuccess value)? success,
+    TResult Function(CreatePostError value)? failure,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreatePostStatusCopyWith<$Res> {
+  factory $CreatePostStatusCopyWith(
+          CreatePostStatus value, $Res Function(CreatePostStatus) then) =
+      _$CreatePostStatusCopyWithImpl<$Res, CreatePostStatus>;
+}
+
+/// @nodoc
+class _$CreatePostStatusCopyWithImpl<$Res, $Val extends CreatePostStatus>
+    implements $CreatePostStatusCopyWith<$Res> {
+  _$CreatePostStatusCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CreatePostStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+abstract class _$$CreatePostInitialImplCopyWith<$Res> {
+  factory _$$CreatePostInitialImplCopyWith(_$CreatePostInitialImpl value,
+          $Res Function(_$CreatePostInitialImpl) then) =
+      __$$CreatePostInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CreatePostInitialImplCopyWithImpl<$Res>
+    extends _$CreatePostStatusCopyWithImpl<$Res, _$CreatePostInitialImpl>
+    implements _$$CreatePostInitialImplCopyWith<$Res> {
+  __$$CreatePostInitialImplCopyWithImpl(_$CreatePostInitialImpl _value,
+      $Res Function(_$CreatePostInitialImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CreatePostStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$CreatePostInitialImpl implements CreatePostInitial {
+  const _$CreatePostInitialImpl();
+
+  @override
+  String toString() {
+    return 'CreatePostStatus.initial()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CreatePostInitialImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String error) failure,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String error)? failure,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String error)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePostInitial value) initial,
+    required TResult Function(CreatePostLoading value) loading,
+    required TResult Function(CreatePostSuccess value) success,
+    required TResult Function(CreatePostError value) failure,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CreatePostInitial value)? initial,
+    TResult? Function(CreatePostLoading value)? loading,
+    TResult? Function(CreatePostSuccess value)? success,
+    TResult? Function(CreatePostError value)? failure,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePostInitial value)? initial,
+    TResult Function(CreatePostLoading value)? loading,
+    TResult Function(CreatePostSuccess value)? success,
+    TResult Function(CreatePostError value)? failure,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreatePostInitial implements CreatePostStatus {
+  const factory CreatePostInitial() = _$CreatePostInitialImpl;
+}
+
+/// @nodoc
+abstract class _$$CreatePostLoadingImplCopyWith<$Res> {
+  factory _$$CreatePostLoadingImplCopyWith(_$CreatePostLoadingImpl value,
+          $Res Function(_$CreatePostLoadingImpl) then) =
+      __$$CreatePostLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CreatePostLoadingImplCopyWithImpl<$Res>
+    extends _$CreatePostStatusCopyWithImpl<$Res, _$CreatePostLoadingImpl>
+    implements _$$CreatePostLoadingImplCopyWith<$Res> {
+  __$$CreatePostLoadingImplCopyWithImpl(_$CreatePostLoadingImpl _value,
+      $Res Function(_$CreatePostLoadingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CreatePostStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$CreatePostLoadingImpl implements CreatePostLoading {
+  const _$CreatePostLoadingImpl();
+
+  @override
+  String toString() {
+    return 'CreatePostStatus.loading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CreatePostLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String error) failure,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String error)? failure,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String error)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePostInitial value) initial,
+    required TResult Function(CreatePostLoading value) loading,
+    required TResult Function(CreatePostSuccess value) success,
+    required TResult Function(CreatePostError value) failure,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CreatePostInitial value)? initial,
+    TResult? Function(CreatePostLoading value)? loading,
+    TResult? Function(CreatePostSuccess value)? success,
+    TResult? Function(CreatePostError value)? failure,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePostInitial value)? initial,
+    TResult Function(CreatePostLoading value)? loading,
+    TResult Function(CreatePostSuccess value)? success,
+    TResult Function(CreatePostError value)? failure,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreatePostLoading implements CreatePostStatus {
+  const factory CreatePostLoading() = _$CreatePostLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$CreatePostSuccessImplCopyWith<$Res> {
+  factory _$$CreatePostSuccessImplCopyWith(_$CreatePostSuccessImpl value,
+          $Res Function(_$CreatePostSuccessImpl) then) =
+      __$$CreatePostSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CreatePostSuccessImplCopyWithImpl<$Res>
+    extends _$CreatePostStatusCopyWithImpl<$Res, _$CreatePostSuccessImpl>
+    implements _$$CreatePostSuccessImplCopyWith<$Res> {
+  __$$CreatePostSuccessImplCopyWithImpl(_$CreatePostSuccessImpl _value,
+      $Res Function(_$CreatePostSuccessImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CreatePostStatus
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$CreatePostSuccessImpl implements CreatePostSuccess {
+  const _$CreatePostSuccessImpl();
+
+  @override
+  String toString() {
+    return 'CreatePostStatus.success()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CreatePostSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String error) failure,
+  }) {
+    return success();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String error)? failure,
+  }) {
+    return success?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String error)? failure,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePostInitial value) initial,
+    required TResult Function(CreatePostLoading value) loading,
+    required TResult Function(CreatePostSuccess value) success,
+    required TResult Function(CreatePostError value) failure,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CreatePostInitial value)? initial,
+    TResult? Function(CreatePostLoading value)? loading,
+    TResult? Function(CreatePostSuccess value)? success,
+    TResult? Function(CreatePostError value)? failure,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePostInitial value)? initial,
+    TResult Function(CreatePostLoading value)? loading,
+    TResult Function(CreatePostSuccess value)? success,
+    TResult Function(CreatePostError value)? failure,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreatePostSuccess implements CreatePostStatus {
+  const factory CreatePostSuccess() = _$CreatePostSuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$CreatePostErrorImplCopyWith<$Res> {
+  factory _$$CreatePostErrorImplCopyWith(_$CreatePostErrorImpl value,
+          $Res Function(_$CreatePostErrorImpl) then) =
+      __$$CreatePostErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$CreatePostErrorImplCopyWithImpl<$Res>
+    extends _$CreatePostStatusCopyWithImpl<$Res, _$CreatePostErrorImpl>
+    implements _$$CreatePostErrorImplCopyWith<$Res> {
+  __$$CreatePostErrorImplCopyWithImpl(
+      _$CreatePostErrorImpl _value, $Res Function(_$CreatePostErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CreatePostStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$CreatePostErrorImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CreatePostErrorImpl implements CreatePostError {
+  const _$CreatePostErrorImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'CreatePostStatus.failure(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreatePostErrorImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  /// Create a copy of CreatePostStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreatePostErrorImplCopyWith<_$CreatePostErrorImpl> get copyWith =>
+      __$$CreatePostErrorImplCopyWithImpl<_$CreatePostErrorImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String error) failure,
+  }) {
+    return failure(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String error)? failure,
+  }) {
+    return failure?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String error)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreatePostInitial value) initial,
+    required TResult Function(CreatePostLoading value) loading,
+    required TResult Function(CreatePostSuccess value) success,
+    required TResult Function(CreatePostError value) failure,
+  }) {
+    return failure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CreatePostInitial value)? initial,
+    TResult? Function(CreatePostLoading value)? loading,
+    TResult? Function(CreatePostSuccess value)? success,
+    TResult? Function(CreatePostError value)? failure,
+  }) {
+    return failure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreatePostInitial value)? initial,
+    TResult Function(CreatePostLoading value)? loading,
+    TResult Function(CreatePostSuccess value)? success,
+    TResult Function(CreatePostError value)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreatePostError implements CreatePostStatus {
+  const factory CreatePostError(final String error) = _$CreatePostErrorImpl;
+
+  String get error;
+
+  /// Create a copy of CreatePostStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CreatePostErrorImplCopyWith<_$CreatePostErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

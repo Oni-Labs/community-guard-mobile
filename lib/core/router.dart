@@ -1,11 +1,13 @@
+import 'package:camera/camera.dart';
 import 'package:community_guard_mobile/features/create_post/view/create_post_page.dart';
 import 'package:community_guard_mobile/features/home/view/home_page.dart';
-import 'package:community_guard_mobile/features/home/widgets/home_content_page.dart';
 import 'package:community_guard_mobile/features/profile/view/profile_page.dart';
-import 'package:community_guard_mobile/features/search/view/search_page.dart';
+// import 'package:community_guard_mobile/features/search/view/search_page.dart';
 import 'package:community_guard_mobile/features/service_map/view/service_map_page.dart';
 
 import '../auth/view/login_page.dart';
+import '../features/create_post/widgets/fullscreen_image_view.dart';
+import '../features/feed/view/feed_page.dart';
 import '../features/startup/view/startup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -65,7 +67,7 @@ class StartupRoute extends GoRouteData {
 @TypedShellRoute<HomeShellRoute>(
   routes: [
     TypedGoRoute<FeedRoute>(path: '/feed'),
-    TypedGoRoute<ExploreRoute>(path: '/explore'),
+    // TypedGoRoute<ExploreRoute>(path: '/explore'),
     TypedGoRoute<CreatePostRoute>(path: '/create-post'),
     TypedGoRoute<ServiceMapRoute>(path: '/service-map'),
     TypedGoRoute<ProfileRoute>(path: '/profile'),
@@ -96,18 +98,18 @@ class FeedRoute extends GoRouteData {
   }
 }
 
-class ExploreRoute extends GoRouteData {
-  const ExploreRoute();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return customTransitionPageBuilder(
-      context,
-      state,
-      const SearchPage(),
-    );
-  }
-}
+// class ExploreRoute extends GoRouteData {
+//   const ExploreRoute();
+//
+//   @override
+//   Page<void> buildPage(BuildContext context, GoRouterState state) {
+//     return customTransitionPageBuilder(
+//       context,
+//       state,
+//       const SearchPage(),
+//     );
+//   }
+// }
 
 class CreatePostRoute extends GoRouteData {
   const CreatePostRoute();
@@ -161,3 +163,15 @@ class LoginRoute extends GoRouteData {
     );
   }
 }
+
+@TypedGoRoute<ImageViewRoute>(path: '/images/view')
+class ImageViewRoute extends GoRouteData {
+  const ImageViewRoute({this.path});
+
+  final String? path;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      FullscreenImageView(image: path != null ? XFile(path!) : null);
+}
+

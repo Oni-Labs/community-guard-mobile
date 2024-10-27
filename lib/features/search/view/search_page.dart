@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/widgets/custom_card.dart';
-import '../../../core/widgets/custom_grid_view.dart';
+import '../../profile/widgets/custom_grid_view.dart';
 import '../../../core/widgets/input_form.dart';
 import '../../../gen/assets.gen.dart';
 import '../search.dart';

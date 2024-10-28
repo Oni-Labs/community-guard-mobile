@@ -32,13 +32,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       if (response.response.statusCode == HttpStatus.ok) {
         emit(
           state.copyWith(
-            posts: response.data.data!,
+            posts: response.data.data,
             status: const ProfileStatus.success(),
           ),
         );
       }
     } on DioException catch (e, stack) {
       talker.handle(e, stack);
+      emit(state.copyWith(status: const ProfileStatus.failure()));
     }
   }
 }

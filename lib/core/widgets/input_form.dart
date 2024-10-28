@@ -50,7 +50,8 @@ class InputForm extends StatelessWidget {
           validator: validator,
           controller: controller,
           decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.auto, // Ajustado para auto flutuar
+            floatingLabelBehavior:
+                FloatingLabelBehavior.auto, // Ajustado para auto flutuar
             labelText: label, // Label real em vez de hintText
             labelStyle: TextStyle(
               color: color,
@@ -59,18 +60,18 @@ class InputForm extends StatelessWidget {
             ),
             prefixIcon: prefixIcon != null
                 ? Icon(
-              prefixIcon,
-              color: prefixColor ?? Colors.grey,
-            )
+                    prefixIcon,
+                    color: prefixColor ?? Colors.grey,
+                  )
                 : null,
             suffixIcon: suffixIcon != null
                 ? GestureDetector(
-              onTap: suffixOnTap,
-              child: Icon(
-                suffixIcon,
-                color: suffixColor ?? Colors.grey,
-              ),
-            )
+                    onTap: suffixOnTap,
+                    child: Icon(
+                      suffixIcon,
+                      color: suffixColor ?? Colors.grey,
+                    ),
+                  )
                 : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

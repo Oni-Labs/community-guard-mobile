@@ -1,8 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'attachment.dart';
-import 'point.dart';
 
 part 'service_execution.freezed.dart';
 part 'service_execution.g.dart';
@@ -21,4 +19,3 @@ class ServiceExecution with _$ServiceExecution {
   factory ServiceExecution.fromJson(Map<String, dynamic> json) =>
       _$ServiceExecutionFromJson(json);
 }
-

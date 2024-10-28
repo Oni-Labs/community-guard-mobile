@@ -11,9 +11,9 @@ sealed class GenericResponse<T> with _$GenericResponse<T> {
   }) = _GenericResponse;
 
   factory GenericResponse.fromJson(
-      Map<String, dynamic> json,
-      T Function(Object? json) fromJsonT,
-      ) =>
+    Map<String, dynamic> json,
+    T Function(Object? json) fromJsonT,
+  ) =>
       _$GenericResponseFromJson(json, fromJsonT);
 }
 

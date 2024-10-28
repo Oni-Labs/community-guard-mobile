@@ -96,6 +96,5 @@ class CreatePostBloc extends Bloc<CreatePostEvent, CreatePostState> {
     } on DioException catch (e, stack) {
       talker.handle(e, stack);
     }
-
   }
 }

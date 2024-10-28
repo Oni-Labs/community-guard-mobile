@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:objectbox/objectbox.dart';
 
 part 'post.freezed.dart';
 part 'post.g.dart';
@@ -15,6 +14,5 @@ class Post with _$Post {
     required String urlPhotoPost,
   }) = _Post;
 
-  factory Post.fromJson(Map<String, dynamic> json) =>
-      _$PostFromJson(json);
+  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 }

@@ -3,7 +3,7 @@ import 'package:shimmer/shimmer.dart';
 
 class ServiceMapPreviewLoading extends StatelessWidget {
   const ServiceMapPreviewLoading({super.key, this.padding});
-  
+
   final EdgeInsetsGeometry? padding;
 
   @override

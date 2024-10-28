@@ -1,4 +1,4 @@
-
+import 'package:community_guard_mobile/core/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -69,6 +69,7 @@ class _ProfileViewState extends State<ProfileView>
                     switch (state.status) {
                       StatusLoading() => const CustomGridLoading(itemCount: 12),
                       StatusSuccess() => _buildGridView(state.posts.length),
+                      StatusFailure() => const SizedBox(),
                       _ => const SizedBox(),
                     }
                   ],
@@ -88,30 +89,23 @@ class _ProfileViewState extends State<ProfileView>
       pinned: true,
       floating: true,
       forceElevated: true,
-      leading: const Padding(
-        padding: EdgeInsets.only(left: 16.0),
-        child: Icon(
-          Icons.lock,
+      title: const Text(
+        'gustaf_avf',
+        style: TextStyle(
           color: Colors.black,
+          fontWeight: FontWeight.bold,
         ),
-      ),
-      title: const Row(
-        children: [
-          Text(
-            'gustaf_avf',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Icon(Icons.keyboard_arrow_down, color: Colors.black, size: 20),
-        ],
       ),
       centerTitle: false,
       actions: [
-        IconButton(
-          icon: const Icon(LucideIcons.menu, color: Colors.black),
-          onPressed: () {},
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: IconButton(
+            onPressed: () {
+              const SettingsRoute().push(context);
+            },
+            icon: const Icon(LucideIcons.settings),
+          ),
         ),
       ],
     );

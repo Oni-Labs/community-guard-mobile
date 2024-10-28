@@ -17,4 +17,3 @@ class AttachmentOrder with _$AttachmentOrder {
   factory AttachmentOrder.fromJson(Map<String, dynamic> json) =>
       _$AttachmentOrderFromJson(json);
 }
-

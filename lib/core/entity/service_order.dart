@@ -33,4 +33,3 @@ class ServiceOrder with _$ServiceOrder {
   factory ServiceOrder.fromJson(Map<String, dynamic> json) =>
       _$ServiceOrderFromJson(json);
 }
-

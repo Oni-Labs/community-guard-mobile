@@ -1,9 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:community_guard_mobile/features/create_post/view/create_post_page.dart';
 import 'package:community_guard_mobile/features/home/view/home_page.dart';
+import 'package:community_guard_mobile/features/notification/view/notification_page.dart';
 import 'package:community_guard_mobile/features/profile/view/profile_page.dart';
 // import 'package:community_guard_mobile/features/search/view/search_page.dart';
 import 'package:community_guard_mobile/features/service_map/view/service_map_page.dart';
+import 'package:community_guard_mobile/features/settings/view/settings_page.dart';
 
 import '../auth/view/login_page.dart';
 import '../features/create_post/widgets/fullscreen_image_view.dart';
@@ -28,10 +30,10 @@ final GoRouter router = GoRouter(
 );
 
 CustomTransitionPage<void> customTransitionPageBuilder(
-    BuildContext context,
-    GoRouterState state,
-    Widget child,
-    ) {
+  BuildContext context,
+  GoRouterState state,
+  Widget child,
+) {
   return CustomTransitionPage<void>(
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -164,6 +166,34 @@ class LoginRoute extends GoRouteData {
   }
 }
 
+@TypedGoRoute<SettingsRoute>(path: '/settings')
+class SettingsRoute extends GoRouteData {
+  const SettingsRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const SettingsPage(),
+    );
+  }
+}
+
+@TypedGoRoute<NotificationRoute>(path: '/notification')
+class NotificationRoute extends GoRouteData {
+  const NotificationRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return customTransitionPageBuilder(
+      context,
+      state,
+      const NotificationPage(),
+    );
+  }
+}
+
 @TypedGoRoute<ImageViewRoute>(path: '/images/view')
 class ImageViewRoute extends GoRouteData {
   const ImageViewRoute({this.path});
@@ -174,4 +204,3 @@ class ImageViewRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) =>
       FullscreenImageView(image: path != null ? XFile(path!) : null);
 }
-

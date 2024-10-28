@@ -71,7 +71,7 @@ class FeedLoadingShimmer extends StatelessWidget {
                         Row(
                           children: List.generate(
                             3,
-                                (index) => Padding(
+                            (index) => Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: Container(
                                 width: 24,
@@ -150,7 +150,7 @@ class FeedLoadingShimmer extends StatelessWidget {
                         Row(
                           children: List.generate(
                             3,
-                                (index) => Padding(
+                            (index) => Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: Container(
                                 width: 24,
@@ -169,7 +169,8 @@ class FeedLoadingShimmer extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),Container(
+              ),
+              Container(
                 decoration: BoxDecoration(
                   color: Colors.white38,
                   borderRadius: BorderRadius.circular(6),
@@ -227,7 +228,7 @@ class FeedLoadingShimmer extends StatelessWidget {
                         Row(
                           children: List.generate(
                             3,
-                                (index) => Padding(
+                            (index) => Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: Container(
                                 width: 24,

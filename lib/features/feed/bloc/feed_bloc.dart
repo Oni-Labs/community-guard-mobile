@@ -29,11 +29,15 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       final response = await client.getPosts();
 
       if (response.response.statusCode == HttpStatus.ok) {
-        emit(state.copyWith(posts: response.data.data!));
+        emit(state.copyWith(posts: response.data.data));
       }
-
     } on DioException catch (e, stack) {
       talker.handle(e, stack);
+      emit(
+        state.copyWith(
+          status: const FeedStatus.failure("Erro ao carregar posts"),
+        ),
+      );
     }
   }
 }

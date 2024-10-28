@@ -8,9 +8,9 @@ class TokenInterceptor extends Interceptor {
 
   @override
   FutureOr<dynamic> onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     // final token = _settingsBox.get('user_token');
 
     // if (token != null) {

@@ -187,13 +187,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<HttpResponse<GenericResponse<List<Post>>>> getPosts() async {
+  Future<HttpResponse<PaginationResponse<Post>>> getPosts() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options =
-        _setStreamType<HttpResponse<GenericResponse<List<Post>>>>(Options(
+        _setStreamType<HttpResponse<PaginationResponse<Post>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -210,15 +210,11 @@ class _RestClient implements RestClient {
               baseUrl,
             )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenericResponse<List<Post>> _value;
+    late PaginationResponse<Post> _value;
     try {
-      _value = GenericResponse<List<Post>>.fromJson(
+      _value = PaginationResponse<Post>.fromJson(
         _result.data!,
-        (json) => json is List<dynamic>
-            ? json
-                .map<Post>((i) => Post.fromJson(i as Map<String, dynamic>))
-                .toList()
-            : List.empty(),
+        (json) => Post.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -229,13 +225,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<HttpResponse<GenericResponse<List<Post>>>> getUserPosts() async {
+  Future<HttpResponse<PaginationResponse<Post>>> getUserPosts() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options =
-        _setStreamType<HttpResponse<GenericResponse<List<Post>>>>(Options(
+        _setStreamType<HttpResponse<PaginationResponse<Post>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -252,15 +248,11 @@ class _RestClient implements RestClient {
               baseUrl,
             )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GenericResponse<List<Post>> _value;
+    late PaginationResponse<Post> _value;
     try {
-      _value = GenericResponse<List<Post>>.fromJson(
+      _value = PaginationResponse<Post>.fromJson(
         _result.data!,
-        (json) => json is List<dynamic>
-            ? json
-                .map<Post>((i) => Post.fromJson(i as Map<String, dynamic>))
-                .toList()
-            : List.empty(),
+        (json) => Post.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

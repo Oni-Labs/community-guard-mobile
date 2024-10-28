@@ -10,6 +10,8 @@ List<RouteBase> get $appRoutes => [
       $startupRoute,
       $homeShellRoute,
       $loginRoute,
+      $settingsRoute,
+      $notificationRoute,
       $imageViewRoute,
     ];
 
@@ -143,6 +145,51 @@ extension $LoginRouteExtension on LoginRoute {
 
   String get location => GoRouteData.$location(
         '/login',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $settingsRoute => GoRouteData.$route(
+      path: '/settings',
+      factory: $SettingsRouteExtension._fromState,
+    );
+
+extension $SettingsRouteExtension on SettingsRoute {
+  static SettingsRoute _fromState(GoRouterState state) => const SettingsRoute();
+
+  String get location => GoRouteData.$location(
+        '/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $notificationRoute => GoRouteData.$route(
+      path: '/notification',
+      factory: $NotificationRouteExtension._fromState,
+    );
+
+extension $NotificationRouteExtension on NotificationRoute {
+  static NotificationRoute _fromState(GoRouterState state) =>
+      const NotificationRoute();
+
+  String get location => GoRouteData.$location(
+        '/notification',
       );
 
   void go(BuildContext context) => context.go(location);

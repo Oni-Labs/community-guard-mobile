@@ -96,8 +96,7 @@ class PostItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton(
-                        onPressed: () {
-                        },
+                        onPressed: () {},
                         icon: isFavorite
                             ? const Icon(
                                 Icons.favorite,
@@ -180,8 +179,7 @@ class PostItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     icon: isSaved
                         ? const Icon(
                             Icons.bookmark,

@@ -22,25 +22,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Icon(Icons.keyboard_arrow_down, color: Colors.black, size: 20), // Ícone de seta para baixo
+          Icon(Icons.keyboard_arrow_down,
+              color: Colors.black, size: 20), // Ícone de seta para baixo
         ],
       ),
       centerTitle: false, // Alinha o título à esquerda
       actions: [
         IconButton(
-          icon: Icon(LucideIcons.theater, color: Colors.black), // Ícone personalizado
+          icon: const Icon(LucideIcons.theater,
+              color: Colors.black), // Ícone personalizado
           onPressed: () {
             // Ação ao clicar no ícone
           },
         ),
         IconButton(
-          icon: Icon(LucideIcons.plus, color: Colors.black), // Ícone de adicionar
+          icon:
+              const Icon(LucideIcons.plus, color: Colors.black), // Ícone de adicionar
           onPressed: () {
             // Ação ao clicar no ícone
           },
         ),
         IconButton(
-          icon: Icon(Icons.menu, color: Colors.black), // Ícone de menu
+          icon: const Icon(Icons.menu, color: Colors.black), // Ícone de menu
           onPressed: () {
             // Ação ao clicar no ícone
           },
@@ -50,5 +53,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

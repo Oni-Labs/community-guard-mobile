@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:community_guard_mobile/core/api/response/generic_response.dart';
+import 'package:community_guard_mobile/core/api/response/pagination_response.dart';
 import 'package:community_guard_mobile/core/entity/user.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
@@ -51,9 +52,9 @@ abstract class RestClient {
 
   // Pegar Publicações
   @GET('publication')
-  Future<HttpResponse<GenericResponse<List<Post>>>> getPosts();
+  Future<HttpResponse<PaginationResponse<Post>>> getPosts();
 
   // Pegar Publicações do usuário
   @GET('publication/user')
-  Future<HttpResponse<GenericResponse<List<Post>>>> getUserPosts();
+  Future<HttpResponse<PaginationResponse<Post>>> getUserPosts();
 }

@@ -11,7 +11,7 @@ class MaterialErrorText extends StatelessWidget {
     return Text(
       errorText,
       style:
-      theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.error),
+          theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.error),
       textAlign: TextAlign.start,
       overflow: TextOverflow.ellipsis,
       maxLines: 2,

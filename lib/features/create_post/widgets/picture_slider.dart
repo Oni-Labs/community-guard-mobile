@@ -153,7 +153,8 @@ class PicturesSliderState extends State<PicturesSlider> {
                   : CrossFadeState.showFirst,
               firstChild: const SizedBox(),
               secondChild: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
                 child: MaterialErrorText(state.errorText ?? ''),
               ),
             ),

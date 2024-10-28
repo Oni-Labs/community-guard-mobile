@@ -31,7 +31,6 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
-
         useMaterial3: true,
       ),
     );

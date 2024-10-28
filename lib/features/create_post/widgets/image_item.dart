@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ImageItem extends StatefulWidget {
   const ImageItem({
@@ -37,12 +36,12 @@ class _ImageItemState extends State<ImageItem> {
           height: 90,
           child: widget.image.path.isPDFFileName
               ? const Center(
-            child: Icon(Icons.picture_as_pdf),
-          )
+                  child: Icon(Icons.picture_as_pdf),
+                )
               : Image.file(
-            File(widget.image.path),
-            fit: BoxFit.cover,
-          ),
+                  File(widget.image.path),
+                  fit: BoxFit.cover,
+                ),
         ),
         Positioned(
           top: 1,

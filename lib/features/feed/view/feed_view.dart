@@ -29,60 +29,69 @@ class FeedView extends StatelessWidget {
       },
       child: BlocBuilder<FeedBloc, FeedState>(
         builder: (context, state) {
-          return CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                backgroundColor: Colors.white,
-                title: const Text('Publicações'),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: IconButton(
-                      onPressed: () {
-                        const NotificationRoute().push(context);
-                      },
-                      icon: const Icon(LucideIcons.bell),
+          return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                const CreatePostRoute().go(context);
+              },
+              child: const Icon(LucideIcons.mapPinPlus),
+            ),
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: Colors.white,
+                  title: const Text('Publicações'),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: IconButton(
+                        onPressed: () {
+                          const NotificationRoute().push(context);
+                        },
+                        icon: const Icon(LucideIcons.bell),
+                      ),
                     ),
-                  ),
-                ],
-                leading: Center(
-                  child: ClipOval(
-                    child: Image.asset(
-                      Assets.icons.profile.path,
-                      fit: BoxFit.cover,
-                      width: 50,
-                      height: 50,
-                    ),
-                  ),
-                ),
-                toolbarHeight: 100,
-                leadingWidth: 80,
-              ),
-              switch (state.status) {
-                FeedLoading() => const FeedLoadingShimmer(),
-                FeedSuccess() => state.posts.isNotEmpty
-                    ? SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: PostItem(
-                                isFavorite: state.isFavorite,
-                                isSaved: state.isSaved,
-                                isCompleted: state.isCompleted,
-                              ),
-                            );
-                          },
-                          childCount: state.posts.length,
+                  ],
+                  leading: GestureDetector(
+                    onTap: () => const ProfileRoute().go(context),
+                    child: Center(
+                      child: ClipOval(
+                        child: Image.asset(
+                          Assets.icons.profile.path,
+                          fit: BoxFit.cover,
+                          width: 50,
+                          height: 50,
                         ),
-                      )
-                    : const FeedIsEmpty(),
-                FeedFailure() => const FeedIsEmpty(),
-                _ => const FeedIsEmpty(),
-              }
-
-              // SliverFillRemaining(child: FeedLoadingShimmer())
-            ],
+                      ),
+                    ),
+                  ),
+                  toolbarHeight: 100,
+                  leadingWidth: 80,
+                ),
+                switch (state.status) {
+                  FeedLoading() => const FeedLoadingShimmer(),
+                  FeedSuccess() => state.posts.isNotEmpty
+                      ? SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: PostItem(
+                                  isFavorite: state.isFavorite,
+                                  isSaved: state.isSaved,
+                                  isCompleted: state.isCompleted,
+                                ),
+                              );
+                            },
+                            childCount: state.posts.length,
+                          ),
+                        )
+                      : const FeedIsEmpty(),
+                  FeedFailure() => const FeedIsEmpty(),
+                  _ => const FeedIsEmpty(),
+                },
+              ],
+            ),
           );
         },
       ),

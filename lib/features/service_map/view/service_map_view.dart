@@ -1,7 +1,10 @@
+import 'package:community_guard_mobile/core/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../service_map.dart';
 
@@ -16,13 +19,54 @@ class _ServiceMapViewState extends State<ServiceMapView> {
   GoogleMapController? mapController;
   Set<Marker> markers = {};
 
+  @override
+  void initState() {
+    super.initState();
+    _loadLastKnownPosition();
+  }
+
+  Future<void> _loadLastKnownPosition() async {
+    final prefs = await SharedPreferences.getInstance();
+    final latitude = prefs.getDouble('last_latitude') ?? -7.115;
+    final longitude = prefs.getDouble('last_longitude') ?? -34.861;
+    final cachedPosition = Position(
+      latitude: latitude,
+      longitude: longitude,
+      timestamp: DateTime.now(),
+      accuracy: 0.0,
+      altitude: 0.0,
+      heading: 0.0,
+      speed: 0.0,
+      speedAccuracy: 0.0,
+      altitudeAccuracy: 0.0,
+      headingAccuracy: 0.0,
+    );
+    _goToCurrentLocation(cachedPosition);
+  }
+
+  Future<void> _cachePosition(Position position) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('last_latitude', position.latitude);
+    await prefs.setDouble('last_longitude', position.longitude);
+  }
+
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   void _goToCurrentLocation(Position? position) {
-    mapController?.animateCamera(
-        CameraUpdate.newLatLng(LatLng(position!.latitude, position.longitude)));
+    if (position != null) {
+      mapController?.animateCamera(
+        CameraUpdate.newLatLng(LatLng(position.latitude, position.longitude)),
+      );
+      _cachePosition(position); // Cacheia a posição atual
+    }
+  }
+
+  @override
+  void dispose() {
+    mapController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,10 +97,16 @@ class _ServiceMapViewState extends State<ServiceMapView> {
                       top: 60,
                       right: 20,
                       child: FloatingActionButton(
-                        onPressed: () {
-                          _goToCurrentLocation(state.position);
-                        },
+                        onPressed: () => _goToCurrentLocation(state.position),
                         child: const Icon(Icons.my_location),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 50,
+                      left: 20,
+                      child: FloatingActionButton(
+                        onPressed: () => const CreatePostRoute().go(context),
+                        child: const Icon(LucideIcons.mapPinPlus),
                       ),
                     ),
                   ],

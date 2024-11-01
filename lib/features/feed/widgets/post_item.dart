@@ -1,19 +1,30 @@
+import 'package:community_guard_mobile/features/feed/widgets/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../home/bloc/home_bloc.dart';
 
-class PostItem extends StatelessWidget {
-  const PostItem(
-      {super.key,
-      this.isFavorite = false,
-      this.isSaved = false,
-      this.isCompleted = false});
+class PostItem extends StatefulWidget {
+  const PostItem({
+    super.key,
+    this.isFavorite = false,
+    this.isSaved = false,
+    this.isCompleted = false,
+  });
 
   final bool isFavorite;
   final bool isSaved;
   final bool isCompleted;
+
+  @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
+  final PageController _pageController = PageController();
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +37,7 @@ class PostItem extends StatelessWidget {
         ),
         child: Column(
           children: [
+            // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -33,20 +45,22 @@ class PostItem extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ClipRect(
-                        child: ClipOval(
-                          child: Image.asset(
-                            Assets.icons.profile.path,
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
-                          ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          Assets.icons.profile.path,
+                          width: 35,
+                          height: 35,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('Gustavo', style: TextStyle(fontSize: 18)),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Gustavo', style: TextStyle(fontSize: 16)),
+                        Text('Avenida da República, 123',
+                            style: TextStyle(fontSize: 12)),
+                      ],
                     ),
                   ],
                 ),
@@ -54,7 +68,7 @@ class PostItem extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: isCompleted
+                      child: widget.isCompleted
                           ? const Icon(
                               Icons.check_circle,
                               color: Colors.green,
@@ -87,7 +101,52 @@ class PostItem extends StatelessWidget {
                 ),
               ],
             ),
-            Image.asset('assets/images/post.png', fit: BoxFit.cover),
+            // Carousel with page indicator
+            Stack(
+              children: [
+                SizedBox(
+                  height: 200,
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    },
+                    children: [
+                      Image.asset('assets/images/post.png', fit: BoxFit.cover),
+                      Image.asset('assets/images/post.png', fit: BoxFit.cover),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 10.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Center(
+                    child: SmoothPageIndicator(
+                      controller: _pageController,
+                      count: 2,
+                      effect: const ScrollingDotsEffect(
+                        activeDotColor: Colors.deepPurple,
+                        dotColor: Colors.grey,
+                        dotHeight: 8.0,
+                        dotWidth: 8.0,
+                        spacing: 4.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const ExpandableText(
+              user: 'Gustavo Alfredo',
+              text:
+                  'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet',
+              maxLines: 2,
+            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -97,13 +156,13 @@ class PostItem extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton(
                         onPressed: () {},
-                        icon: isFavorite
+                        icon: widget.isFavorite
                             ? const Icon(
-                                Icons.favorite,
-                                color: Colors.redAccent,
+                                Icons.sentiment_very_satisfied,
+                                color: Colors.deepPurple,
                               )
                             : const Icon(
-                                Icons.favorite_border,
+                                Icons.sentiment_neutral,
                                 color: Colors.black54,
                               ),
                       ),
@@ -111,7 +170,10 @@ class PostItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton(
-                        icon: const Icon(Icons.comment),
+                        icon: const Icon(
+                          Icons.comment,
+                          color: Colors.black54,
+                        ),
                         onPressed: () {
                           showModalBottomSheet(
                             context: context,
@@ -135,14 +197,12 @@ class PostItem extends StatelessWidget {
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(children: [
-                                            ClipRect(
-                                              child: ClipOval(
-                                                child: Image.asset(
-                                                  Assets.icons.profile.path,
-                                                  width: 30,
-                                                  height: 30,
-                                                  fit: BoxFit.cover,
-                                                ),
+                                            ClipOval(
+                                              child: Image.asset(
+                                                Assets.icons.profile.path,
+                                                width: 30,
+                                                height: 30,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                             const Column(
@@ -170,24 +230,12 @@ class PostItem extends StatelessWidget {
                         },
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.share),
-                    ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: isSaved
-                        ? const Icon(
-                            Icons.bookmark,
-                            color: Colors.black54,
-                          )
-                        : const Icon(Icons.bookmark_border),
-                  ),
-                )
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.share),
+                ),
               ],
             ),
           ],

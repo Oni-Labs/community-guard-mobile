@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/router.dart';
 
@@ -21,18 +22,11 @@ class _HomeViewState extends State<HomeView> {
 
     if (route.uri.pathSegments.first == 'feed') {
       return 0;
-    }
-    // else if (route.uri.pathSegments.first == 'explore') {
-    //   return 1;
-    // }
-    else if (route.uri.pathSegments.first == 'create-post') {
-      return 1;
     } else if (route.uri.pathSegments.first == 'service-map') {
-      return 2;
+      return 1;
     } else if (route.uri.pathSegments.first == 'profile') {
-      return 3;
+      return 2;
     }
-
     return 0;
   }
 
@@ -50,28 +44,29 @@ class _HomeViewState extends State<HomeView> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         selectedIconTheme: const IconThemeData(color: Colors.white),
-        unselectedIconTheme: const IconThemeData(color: Colors.black54),
+        unselectedIconTheme: IconThemeData(color: Colors.grey[500]),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              LucideIcons.house,
+              size: 25,
+            ),
             label: 'Home',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.search),
-          //   label: 'Search',
-          // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_box_outlined),
-            label: 'Post',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
+            icon: Icon(
+              LucideIcons.map,
+              size: 25,
+            ),
             label: 'Mapa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Settings',
+            icon: Icon(
+              LucideIcons.circleUserRound,
+              size: 25,
+            ),
+            label: 'Perfil',
           ),
         ],
         currentIndex: _getCurrentIndex(context),
@@ -80,16 +75,10 @@ class _HomeViewState extends State<HomeView> {
             case 0:
               const FeedRoute().go(context);
               break;
-            // case 1:
-            //   const ExploreRoute().go(context);
-            //   break;
             case 1:
-              const CreatePostRoute().go(context);
-              break;
-            case 2:
               const ServiceMapRoute().go(context);
               break;
-            case 3:
+            case 2:
               const ProfileRoute().go(context);
               break;
           }

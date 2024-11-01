@@ -42,11 +42,30 @@ class $AssetsImagesGen {
   /// File path: assets/images/post.png
   AssetGenImage get post => const AssetGenImage('assets/images/post.png');
 
+  /// File path: assets/images/slide_vigilance_1.png
+  AssetGenImage get slideVigilance1 =>
+      const AssetGenImage('assets/images/slide_vigilance_1.png');
+
+  /// File path: assets/images/slide_vigilance_2.png
+  AssetGenImage get slideVigilance2 =>
+      const AssetGenImage('assets/images/slide_vigilance_2.png');
+
+  /// File path: assets/images/slide_vigilance_3.png
+  AssetGenImage get slideVigilance3 =>
+      const AssetGenImage('assets/images/slide_vigilance_3.png');
+
   /// File path: assets/images/splash.gif
   AssetGenImage get splash => const AssetGenImage('assets/images/splash.gif');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logoImage, post, splash];
+  List<AssetGenImage> get values => [
+        logoImage,
+        post,
+        slideVigilance1,
+        slideVigilance2,
+        slideVigilance3,
+        splash
+      ];
 }
 
 class Assets {

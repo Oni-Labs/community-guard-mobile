@@ -12,6 +12,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       email: json['email'] as String,
       profilePhoto: json['profile_photo'] as String?,
       token: json['token'] as String,
+      isFirstAccess: json['isFirstAccess'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'email': instance.email,
       'profile_photo': instance.profilePhoto,
       'token': instance.token,
+      'isFirstAccess': instance.isFirstAccess,
     };

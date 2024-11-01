@@ -26,6 +26,7 @@ mixin _$User {
   @JsonKey(name: 'profile_photo')
   String? get profilePhoto => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  bool get isFirstAccess => throw _privateConstructorUsedError;
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +47,8 @@ abstract class $UserCopyWith<$Res> {
       String name,
       String email,
       @JsonKey(name: 'profile_photo') String? profilePhoto,
-      String token});
+      String token,
+      bool isFirstAccess});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? profilePhoto = freezed,
     Object? token = null,
+    Object? isFirstAccess = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -91,6 +94,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      isFirstAccess: null == isFirstAccess
+          ? _value.isFirstAccess
+          : isFirstAccess // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -107,7 +114,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String name,
       String email,
       @JsonKey(name: 'profile_photo') String? profilePhoto,
-      String token});
+      String token,
+      bool isFirstAccess});
 }
 
 /// @nodoc
@@ -127,6 +135,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? profilePhoto = freezed,
     Object? token = null,
+    Object? isFirstAccess = null,
   }) {
     return _then(_$UserImpl(
       id: null == id
@@ -149,6 +158,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      isFirstAccess: null == isFirstAccess
+          ? _value.isFirstAccess
+          : isFirstAccess // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -161,7 +174,8 @@ class _$UserImpl implements _User {
       required this.name,
       required this.email,
       @JsonKey(name: 'profile_photo') this.profilePhoto,
-      required this.token});
+      required this.token,
+      this.isFirstAccess = false});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -177,10 +191,13 @@ class _$UserImpl implements _User {
   final String? profilePhoto;
   @override
   final String token;
+  @override
+  @JsonKey()
+  final bool isFirstAccess;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, profilePhoto: $profilePhoto, token: $token)';
+    return 'User(id: $id, name: $name, email: $email, profilePhoto: $profilePhoto, token: $token, isFirstAccess: $isFirstAccess)';
   }
 
   @override
@@ -193,13 +210,15 @@ class _$UserImpl implements _User {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.profilePhoto, profilePhoto) ||
                 other.profilePhoto == profilePhoto) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.isFirstAccess, isFirstAccess) ||
+                other.isFirstAccess == isFirstAccess));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, email, profilePhoto, token);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, email, profilePhoto, token, isFirstAccess);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -223,7 +242,8 @@ abstract class _User implements User {
       required final String name,
       required final String email,
       @JsonKey(name: 'profile_photo') final String? profilePhoto,
-      required final String token}) = _$UserImpl;
+      required final String token,
+      final bool isFirstAccess}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -238,6 +258,8 @@ abstract class _User implements User {
   String? get profilePhoto;
   @override
   String get token;
+  @override
+  bool get isFirstAccess;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.

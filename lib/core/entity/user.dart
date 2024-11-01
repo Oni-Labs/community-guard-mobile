@@ -12,6 +12,7 @@ class User with _$User {
     required String email,
     @JsonKey(name: 'profile_photo') final String? profilePhoto,
     required String token,
+    @Default(false) final bool isFirstAccess,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:community_guard_mobile/core/widgets/onboarding_slider.dart';
 import 'package:community_guard_mobile/features/create_post/view/create_post_page.dart';
 import 'package:community_guard_mobile/features/home/view/home_page.dart';
 import 'package:community_guard_mobile/features/notification/view/notification_page.dart';
@@ -25,7 +26,7 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter router = GoRouter(
   routes: $appRoutes,
-  initialLocation: '/feed',
+  initialLocation: '/',
   observers: [TalkerRouteObserver(talker)],
 );
 
@@ -69,8 +70,6 @@ class StartupRoute extends GoRouteData {
 @TypedShellRoute<HomeShellRoute>(
   routes: [
     TypedGoRoute<FeedRoute>(path: '/feed'),
-    // TypedGoRoute<ExploreRoute>(path: '/explore'),
-    TypedGoRoute<CreatePostRoute>(path: '/create-post'),
     TypedGoRoute<ServiceMapRoute>(path: '/service-map'),
     TypedGoRoute<ProfileRoute>(path: '/profile'),
   ],
@@ -113,6 +112,7 @@ class FeedRoute extends GoRouteData {
 //   }
 // }
 
+@TypedGoRoute<CreatePostRoute>(path: '/create-post')
 class CreatePostRoute extends GoRouteData {
   const CreatePostRoute();
 
@@ -187,10 +187,7 @@ class NotificationRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return customTransitionPageBuilder(
-      context,
-      state,
-      const NotificationPage(),
-    );
+        context, state, const NotificationPage());
   }
 }
 
@@ -203,4 +200,12 @@ class ImageViewRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       FullscreenImageView(image: path != null ? XFile(path!) : null);
+}
+
+@TypedGoRoute<OnBoardingSliderRoute>(path: '/onboarding')
+class OnBoardingSliderRoute extends GoRouteData {
+  const OnBoardingSliderRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const OnBoarding();
 }

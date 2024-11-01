@@ -13,6 +13,7 @@ List<RouteBase> get $appRoutes => [
       $settingsRoute,
       $notificationRoute,
       $imageViewRoute,
+      $onBoardingSliderRoute,
     ];
 
 RouteBase get $startupRoute => GoRouteData.$route(
@@ -217,6 +218,29 @@ extension $ImageViewRouteExtension on ImageViewRoute {
         queryParams: {
           if (path != null) 'path': path,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $onBoardingSliderRoute => GoRouteData.$route(
+      path: '/onboarding',
+      factory: $OnBoardingSliderRouteExtension._fromState,
+    );
+
+extension $OnBoardingSliderRouteExtension on OnBoardingSliderRoute {
+  static OnBoardingSliderRoute _fromState(GoRouterState state) =>
+      const OnBoardingSliderRoute();
+
+  String get location => GoRouteData.$location(
+        '/onboarding',
       );
 
   void go(BuildContext context) => context.go(location);

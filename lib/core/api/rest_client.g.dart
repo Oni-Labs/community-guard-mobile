@@ -120,6 +120,91 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<HttpResponse<GenericResponse<ResetToken>>> resetPassword(
+      {required String email}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'email': email};
+    final _options =
+        _setStreamType<HttpResponse<GenericResponse<ResetToken>>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/send-token',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late GenericResponse<ResetToken> _value;
+    try {
+      _value = GenericResponse<ResetToken>.fromJson(
+        _result.data!,
+        (json) => ResetToken.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<GenericResponse<dynamic>>> resetPasswordConfirm({
+    required String token,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'token': token,
+      'password': password,
+      'password_confirmation': passwordConfirmation,
+    };
+    final _options =
+        _setStreamType<HttpResponse<GenericResponse<dynamic>>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'reset-password',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late GenericResponse<dynamic> _value;
+    try {
+      _value = GenericResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<GenericResponse<dynamic>>> createPost({
     required String title,
     required String description,

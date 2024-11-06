@@ -14,6 +14,7 @@ class ServiceMapPreview extends StatefulWidget {
 
 class _ServiceMapPreviewState extends State<ServiceMapPreview> {
   bool _isMapLoaded = false;
+  // ignore: unused_field
   GoogleMapController? _mapController;
 
   void _checkMapLoaded(GoogleMapController controller) {

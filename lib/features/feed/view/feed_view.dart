@@ -77,9 +77,16 @@ class FeedView extends StatelessWidget {
                               return Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: PostItem(
-                                  isFavorite: state.isFavorite,
-                                  isSaved: state.isSaved,
                                   isCompleted: state.isCompleted,
+                                  address: state.posts[index].address,
+                                  description: state.posts[index].description,
+                                  isSupport: state.isCompleted,
+                                  title: state.posts[index].title,
+                                  urlPhotoUser: state.posts[index].urlPhotoUser,
+                                  urlPhotosPost:
+                                      state.posts[index].urlPhotosPost,
+                                  date: 'state.posts[index].d',
+                                  username: state.posts[index].username,
                                 ),
                               );
                             },

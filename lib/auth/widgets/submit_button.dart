@@ -20,7 +20,7 @@ class SubmitButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: FilledButton(
         style: FilledButton.styleFrom(
-          backgroundColor: const Color(0xFF972DA8),
+          backgroundColor: Colors.deepPurple,
           minimumSize: const Size(double.infinity, 43),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

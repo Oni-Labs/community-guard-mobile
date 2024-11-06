@@ -21,6 +21,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<Started>(onStarted, transformer: droppable());
     on<Submitted>(onSubmitted, transformer: droppable());
     on<Registered>(onRegistered, transformer: droppable());
+    on<EventSentToken>(onEventSentToken, transformer: droppable());
+    on<ResetedPassword>(onResetedPassword, transformer: droppable());
+    on<LoggedOut>(onLoggedOut, transformer: droppable());
   }
 
   Future<void> onStarted(
@@ -101,4 +104,79 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
     }
   }
+
+  Future<void> onEventSentToken(
+    EventSentToken event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(tokenStatus: const TokenStatus.sendingToken()));
+    try {
+      final client = ApiUtil.getRestClient();
+      final request = await client.resetPassword(email: event.email);
+      if (request.response.statusCode == HttpStatus.ok) {
+        emit(
+          state.copyWith(
+            tokenStatus: const TokenStatus.sentToken(),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            tokenStatus: const TokenStatus.failure(
+                error: 'O servidor enviou um response inválido'),
+          ),
+        );
+      }
+    } on DioException catch (e, stack) {
+      talker.handle(e, stack);
+      emit(
+        state.copyWith(
+          tokenStatus:
+              const TokenStatus.failure(error: 'Erro ao tentar enviar o token'),
+        ),
+      );
+    }
+  }
+
+  Future<void> onResetedPassword(
+    ResetedPassword event,
+    Emitter<LoginState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(tokenStatus: const TokenStatus.confirmingToken()));
+      final client = ApiUtil.getRestClient();
+      final request = await client.resetPasswordConfirm(
+        token: event.token,
+        password: event.password,
+        passwordConfirmation: event.confirmPassword,
+      );
+      if (request.response.statusCode == HttpStatus.ok) {
+        emit(
+          state.copyWith(
+            tokenStatus: const TokenStatus.confirmedToken(),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            tokenStatus: const TokenStatus.failure(
+                error: 'O servidor enviou um response inválido'),
+          ),
+        );
+      }
+    } on DioException catch (e, stack) {
+      talker.handle(e, stack);
+      emit(
+        state.copyWith(
+          tokenStatus: const TokenStatus.failure(
+              error: 'Erro ao tentar confirmar o token'),
+        ),
+      );
+    }
+  }
+
+  Future<void> onLoggedOut(
+    LoggedOut event,
+    Emitter<LoginState> emit,
+  ) async {}
 }

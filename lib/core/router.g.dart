@@ -9,11 +9,14 @@ part of 'router.dart';
 List<RouteBase> get $appRoutes => [
       $startupRoute,
       $homeShellRoute,
+      $createPostRoute,
       $loginRoute,
       $settingsRoute,
       $notificationRoute,
       $imageViewRoute,
       $onBoardingSliderRoute,
+      $createAccountRoute,
+      $forgotPasswordAccountRoute,
     ];
 
 RouteBase get $startupRoute => GoRouteData.$route(
@@ -47,10 +50,6 @@ RouteBase get $homeShellRoute => ShellRouteData.$route(
           factory: $FeedRouteExtension._fromState,
         ),
         GoRouteData.$route(
-          path: '/create-post',
-          factory: $CreatePostRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
           path: '/service-map',
           factory: $ServiceMapRouteExtension._fromState,
         ),
@@ -71,24 +70,6 @@ extension $FeedRouteExtension on FeedRoute {
 
   String get location => GoRouteData.$location(
         '/feed',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $CreatePostRouteExtension on CreatePostRoute {
-  static CreatePostRoute _fromState(GoRouterState state) =>
-      const CreatePostRoute();
-
-  String get location => GoRouteData.$location(
-        '/create-post',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -124,6 +105,29 @@ extension $ProfileRouteExtension on ProfileRoute {
 
   String get location => GoRouteData.$location(
         '/profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $createPostRoute => GoRouteData.$route(
+      path: '/create-post',
+      factory: $CreatePostRouteExtension._fromState,
+    );
+
+extension $CreatePostRouteExtension on CreatePostRoute {
+  static CreatePostRoute _fromState(GoRouterState state) =>
+      const CreatePostRoute();
+
+  String get location => GoRouteData.$location(
+        '/create-post',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -241,6 +245,52 @@ extension $OnBoardingSliderRouteExtension on OnBoardingSliderRoute {
 
   String get location => GoRouteData.$location(
         '/onboarding',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $createAccountRoute => GoRouteData.$route(
+      path: '/create-account',
+      factory: $CreateAccountRouteExtension._fromState,
+    );
+
+extension $CreateAccountRouteExtension on CreateAccountRoute {
+  static CreateAccountRoute _fromState(GoRouterState state) =>
+      const CreateAccountRoute();
+
+  String get location => GoRouteData.$location(
+        '/create-account',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $forgotPasswordAccountRoute => GoRouteData.$route(
+      path: '/forgot-password-account',
+      factory: $ForgotPasswordAccountRouteExtension._fromState,
+    );
+
+extension $ForgotPasswordAccountRouteExtension on ForgotPasswordAccountRoute {
+  static ForgotPasswordAccountRoute _fromState(GoRouterState state) =>
+      const ForgotPasswordAccountRoute();
+
+  String get location => GoRouteData.$location(
+        '/forgot-password-account',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -16,8 +16,7 @@ const secureStorage = FlutterSecureStorage(aOptions: _androidOptions);
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       // statusBarColor: Colors.deepPurple, // Cor da barra de status
-      systemNavigationBarColor:
-          Colors.deepPurple, // Cor da barra de navegação inferior
+
       systemNavigationBarDividerColor: Colors.deepPurple));
   WidgetsFlutterBinding.ensureInitialized();
   Intl.defaultLocale = await findSystemLocale();

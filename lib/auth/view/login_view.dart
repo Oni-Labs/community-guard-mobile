@@ -1,6 +1,6 @@
+import 'package:community_guard_mobile/core/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:go_router/go_router.dart';
 import '../../../gen/assets.gen.dart';
 import '../widgets/container_social_media.dart';
 import '../widgets/email_input.dart';
@@ -54,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
                     alignment: Alignment.bottomRight,
                     child: TextButton(
                       onPressed: () =>
-                          context.go('/login/forget-password-account'),
+                          const ForgotPasswordAccountRoute().push(context),
                       child: const Text('Esqueci minha senha'),
                     ),
                   ),
@@ -107,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                   const Text('Não tem conta?'),
                   TextButton(
                     onPressed: () {
-                      context.go('/login/create-account');
+                      const CreateAccountRoute().go(context);
                     },
                     child: const Text('Cadastre-se'),
                   ),

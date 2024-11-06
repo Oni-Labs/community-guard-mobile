@@ -13,5 +13,13 @@ class LoginEvent with _$LoginEvent {
     required String password,
     required String confirmPassword,
   }) = Registered;
+  const factory LoginEvent.eventSentToken({
+    required String email,
+  }) = EventSentToken;
+  const factory LoginEvent.resetedPassword({
+    required String token,
+    required String password,
+    required String confirmPassword,
+  }) = ResetedPassword;
   const factory LoginEvent.logout() = LoggedOut;
 }

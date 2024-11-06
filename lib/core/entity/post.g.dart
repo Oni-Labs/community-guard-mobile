@@ -7,18 +7,24 @@ part of 'post.dart';
 // **************************************************************************
 
 _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
-      nameUser: json['nameUser'] as String,
+      username: json['username'] as String,
       urlPhotoUser: json['urlPhotoUser'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      urlPhotoPost: json['urlPhotoPost'] as String,
+      urlPhotosPost: (json['urlPhotosPost'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      isCompleted: json['isCompleted'] as bool? ?? false,
+      address: json['address'] as String,
     );
 
 Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
     <String, dynamic>{
-      'nameUser': instance.nameUser,
+      'username': instance.username,
       'urlPhotoUser': instance.urlPhotoUser,
       'title': instance.title,
       'description': instance.description,
-      'urlPhotoPost': instance.urlPhotoPost,
+      'urlPhotosPost': instance.urlPhotosPost,
+      'isCompleted': instance.isCompleted,
+      'address': instance.address,
     };

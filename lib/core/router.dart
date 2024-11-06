@@ -1,13 +1,14 @@
 import 'package:camera/camera.dart';
+import 'package:community_guard_mobile/auth/login.dart';
+import 'package:community_guard_mobile/auth/view/create_account_view.dart';
+import 'package:community_guard_mobile/auth/view/forget_password_view.dart';
 import 'package:community_guard_mobile/core/widgets/onboarding_slider.dart';
 import 'package:community_guard_mobile/features/create_post/view/create_post_page.dart';
 import 'package:community_guard_mobile/features/home/view/home_page.dart';
 import 'package:community_guard_mobile/features/notification/view/notification_page.dart';
 import 'package:community_guard_mobile/features/profile/view/profile_page.dart';
-// import 'package:community_guard_mobile/features/search/view/search_page.dart';
 import 'package:community_guard_mobile/features/service_map/view/service_map_page.dart';
 import 'package:community_guard_mobile/features/settings/view/settings_page.dart';
-
 import '../auth/view/login_page.dart';
 import '../features/create_post/widgets/fullscreen_image_view.dart';
 import '../features/feed/view/feed_page.dart';
@@ -208,4 +209,22 @@ class OnBoardingSliderRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const OnBoarding();
+}
+
+@TypedGoRoute<CreateAccountRoute>(path: '/create-account')
+class CreateAccountRoute extends GoRouteData {
+  const CreateAccountRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const CreateAccountView();
+}
+
+@TypedGoRoute<ForgotPasswordAccountRoute>(path: '/forgot-password-account')
+class ForgotPasswordAccountRoute extends GoRouteData {
+  const ForgotPasswordAccountRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ForgetPasswordPage();
 }

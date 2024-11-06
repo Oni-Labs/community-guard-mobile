@@ -13,7 +13,7 @@ class EmailInput extends StatelessWidget {
       controller: controller,
       label: 'Email',
       prefixIcon: Icons.email,
-      prefixColor: const Color(0xFF972DA8),
+      prefixColor: Colors.deepPurple,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Insira um email';

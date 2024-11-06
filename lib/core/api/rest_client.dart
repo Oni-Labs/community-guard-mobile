@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:community_guard_mobile/core/api/response/generic_response.dart';
 import 'package:community_guard_mobile/core/api/response/pagination_response.dart';
+import 'package:community_guard_mobile/core/entity/reset_token.dart';
 import 'package:community_guard_mobile/core/entity/user.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
@@ -34,6 +35,18 @@ abstract class RestClient {
   Future<HttpResponse<GenericResponse<User>>> register({
     @Field() required String name,
     @Field() required String email,
+    @Field() required String password,
+    @Field('password_confirmation') required String passwordConfirmation,
+  });
+
+  @POST('/send-token')
+  Future<HttpResponse<GenericResponse<ResetToken>>> resetPassword({
+    @Field() required String email,
+  });
+
+  @POST('reset-password')
+  Future<HttpResponse<GenericResponse>> resetPasswordConfirm({
+    @Field() required String token,
     @Field() required String password,
     @Field('password_confirmation') required String passwordConfirmation,
   });

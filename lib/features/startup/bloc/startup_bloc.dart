@@ -21,18 +21,19 @@ class StartupBloc extends Bloc<StartupEvent, StartupState> {
     Emitter<StartupState> emit,
   ) async {
     await Future.delayed(const Duration(seconds: 2));
-    emit(
-      state.copyWith(
-        status: const StartupStatus.guest(),
-        user: User(
-          id: 1,
-          name: 'Gustavo',
-          email: 'gustavo@gustavo.com',
-          token: '123456789',
-          isFirstAccess: true,
-        ),
-      ),
-    );
+    emit(state.copyWith(status: const StartupStatus.guest()));
+    // emit(
+    //   state.copyWith(
+    //     status: const StartupStatus.guest(),
+    //     user: User(
+    //       id: 1,
+    //       name: 'Gustavo',
+    //       email: 'gustavo@gustavo.com',
+    //       token: '123456789',
+    //       isFirstAccess: true,
+    //     ),
+    //   ),
+    // );
   }
 
   Future<void> onRead(

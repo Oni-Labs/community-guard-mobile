@@ -9,14 +9,26 @@ import '../../core/widgets/button_widget.dart';
 import '../../core/widgets/input_form.dart';
 import '../bloc/login_bloc.dart';
 
-class CreateAccount extends StatefulWidget {
-  const CreateAccount({super.key});
+class CreateAccountPage extends StatelessWidget {
+  const CreateAccountPage({super.key});
 
   @override
-  State<CreateAccount> createState() => _CreateAccountState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => LoginBloc()..add(const LoginEvent.started()),
+      child: const CreateAccountView(),
+    );
+  }
 }
 
-class _CreateAccountState extends State<CreateAccount> {
+class CreateAccountView extends StatefulWidget {
+  const CreateAccountView({super.key});
+
+  @override
+  State<CreateAccountView> createState() => _CreateAccountViewState();
+}
+
+class _CreateAccountViewState extends State<CreateAccountView> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();

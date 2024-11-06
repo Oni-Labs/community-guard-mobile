@@ -20,11 +20,13 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Post {
-  String get nameUser => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   String get urlPhotoUser => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get urlPhotoPost => throw _privateConstructorUsedError;
+  List<String> get urlPhotosPost => throw _privateConstructorUsedError;
+  bool get isCompleted => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
 
   /// Serializes this Post to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,11 +43,13 @@ abstract class $PostCopyWith<$Res> {
       _$PostCopyWithImpl<$Res, Post>;
   @useResult
   $Res call(
-      {String nameUser,
+      {String username,
       String urlPhotoUser,
       String title,
       String description,
-      String urlPhotoPost});
+      List<String> urlPhotosPost,
+      bool isCompleted,
+      String address});
 }
 
 /// @nodoc
@@ -63,16 +67,18 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nameUser = null,
+    Object? username = null,
     Object? urlPhotoUser = null,
     Object? title = null,
     Object? description = null,
-    Object? urlPhotoPost = null,
+    Object? urlPhotosPost = null,
+    Object? isCompleted = null,
+    Object? address = null,
   }) {
     return _then(_value.copyWith(
-      nameUser: null == nameUser
-          ? _value.nameUser
-          : nameUser // ignore: cast_nullable_to_non_nullable
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       urlPhotoUser: null == urlPhotoUser
           ? _value.urlPhotoUser
@@ -86,9 +92,17 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      urlPhotoPost: null == urlPhotoPost
-          ? _value.urlPhotoPost
-          : urlPhotoPost // ignore: cast_nullable_to_non_nullable
+      urlPhotosPost: null == urlPhotosPost
+          ? _value.urlPhotosPost
+          : urlPhotosPost // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -102,11 +116,13 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String nameUser,
+      {String username,
       String urlPhotoUser,
       String title,
       String description,
-      String urlPhotoPost});
+      List<String> urlPhotosPost,
+      bool isCompleted,
+      String address});
 }
 
 /// @nodoc
@@ -121,16 +137,18 @@ class __$$PostImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nameUser = null,
+    Object? username = null,
     Object? urlPhotoUser = null,
     Object? title = null,
     Object? description = null,
-    Object? urlPhotoPost = null,
+    Object? urlPhotosPost = null,
+    Object? isCompleted = null,
+    Object? address = null,
   }) {
     return _then(_$PostImpl(
-      nameUser: null == nameUser
-          ? _value.nameUser
-          : nameUser // ignore: cast_nullable_to_non_nullable
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       urlPhotoUser: null == urlPhotoUser
           ? _value.urlPhotoUser
@@ -144,9 +162,17 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      urlPhotoPost: null == urlPhotoPost
-          ? _value.urlPhotoPost
-          : urlPhotoPost // ignore: cast_nullable_to_non_nullable
+      urlPhotosPost: null == urlPhotosPost
+          ? _value._urlPhotosPost
+          : urlPhotosPost // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -156,29 +182,43 @@ class __$$PostImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PostImpl implements _Post {
   _$PostImpl(
-      {required this.nameUser,
+      {required this.username,
       required this.urlPhotoUser,
       required this.title,
       required this.description,
-      required this.urlPhotoPost});
+      required final List<String> urlPhotosPost,
+      this.isCompleted = false,
+      required this.address})
+      : _urlPhotosPost = urlPhotosPost;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostImplFromJson(json);
 
   @override
-  final String nameUser;
+  final String username;
   @override
   final String urlPhotoUser;
   @override
   final String title;
   @override
   final String description;
+  final List<String> _urlPhotosPost;
   @override
-  final String urlPhotoPost;
+  List<String> get urlPhotosPost {
+    if (_urlPhotosPost is EqualUnmodifiableListView) return _urlPhotosPost;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_urlPhotosPost);
+  }
+
+  @override
+  @JsonKey()
+  final bool isCompleted;
+  @override
+  final String address;
 
   @override
   String toString() {
-    return 'Post(nameUser: $nameUser, urlPhotoUser: $urlPhotoUser, title: $title, description: $description, urlPhotoPost: $urlPhotoPost)';
+    return 'Post(username: $username, urlPhotoUser: $urlPhotoUser, title: $title, description: $description, urlPhotosPost: $urlPhotosPost, isCompleted: $isCompleted, address: $address)';
   }
 
   @override
@@ -186,21 +226,31 @@ class _$PostImpl implements _Post {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostImpl &&
-            (identical(other.nameUser, nameUser) ||
-                other.nameUser == nameUser) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.urlPhotoUser, urlPhotoUser) ||
                 other.urlPhotoUser == urlPhotoUser) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.urlPhotoPost, urlPhotoPost) ||
-                other.urlPhotoPost == urlPhotoPost));
+            const DeepCollectionEquality()
+                .equals(other._urlPhotosPost, _urlPhotosPost) &&
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted) &&
+            (identical(other.address, address) || other.address == address));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, nameUser, urlPhotoUser, title, description, urlPhotoPost);
+      runtimeType,
+      username,
+      urlPhotoUser,
+      title,
+      description,
+      const DeepCollectionEquality().hash(_urlPhotosPost),
+      isCompleted,
+      address);
 
   /// Create a copy of Post
   /// with the given fields replaced by the non-null parameter values.
@@ -220,16 +270,18 @@ class _$PostImpl implements _Post {
 
 abstract class _Post implements Post {
   factory _Post(
-      {required final String nameUser,
+      {required final String username,
       required final String urlPhotoUser,
       required final String title,
       required final String description,
-      required final String urlPhotoPost}) = _$PostImpl;
+      required final List<String> urlPhotosPost,
+      final bool isCompleted,
+      required final String address}) = _$PostImpl;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$PostImpl.fromJson;
 
   @override
-  String get nameUser;
+  String get username;
   @override
   String get urlPhotoUser;
   @override
@@ -237,7 +289,11 @@ abstract class _Post implements Post {
   @override
   String get description;
   @override
-  String get urlPhotoPost;
+  List<String> get urlPhotosPost;
+  @override
+  bool get isCompleted;
+  @override
+  String get address;
 
   /// Create a copy of Post
   /// with the given fields replaced by the non-null parameter values.

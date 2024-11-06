@@ -57,6 +57,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/splash.gif
   AssetGenImage get splash => const AssetGenImage('assets/images/splash.gif');
 
+  /// File path: assets/images/startup_animation.gif
+  AssetGenImage get startupAnimation =>
+      const AssetGenImage('assets/images/startup_animation.gif');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         logoImage,
@@ -64,7 +68,8 @@ class $AssetsImagesGen {
         slideVigilance1,
         slideVigilance2,
         slideVigilance3,
-        splash
+        splash,
+        startupAnimation
       ];
 }
 

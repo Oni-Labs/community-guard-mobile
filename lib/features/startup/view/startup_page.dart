@@ -1,7 +1,7 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:community_guard_mobile/core/router.dart';
 import 'package:community_guard_mobile/gen/assets.gen.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../startup.dart';
@@ -25,29 +25,23 @@ class StartupView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<StartupBloc, StartupState>(
       listener: (context, state) {
-        if (state.status is StatusLogged) {
-          const FeedRoute().go(context);
-        } else if (state.status is StatusGuest) {
-          if (state.user?.isFirstAccess == true) {
-            const OnBoardingSliderRoute().go(context);
-          } else {
-            const LoginRoute().go(context);
-          }
-        }
+        // if (state.status is StatusLogged) {
+        //   const FeedRoute().go(context);
+        // } else if (state.status is StatusGuest) {
+        //   if (state.user?.isFirstAccess == true) {
+        //     const OnBoardingSliderRoute().go(context);
+        //   } else {
+        //     const LoginRoute().go(context);
+        //   }
+        // }
       },
       child: BlocBuilder<StartupBloc, StartupState>(
         builder: (context, state) {
-          if (state.status == const StartupStatus.guest()) {
-            return FlutterSplashScreen.gif(
-              backgroundColor: const Color(0xFFEBBCF8),
-              useImmersiveMode: true,
-              gifPath: Assets.images.splash.path,
-              gifWidth: MediaQuery.of(context).size.width,
-              gifHeight: MediaQuery.of(context).size.height,
-              duration: const Duration(milliseconds: 3515),
-            );
-          }
-          return Container();
+          return FlutterSplashScreen.gif(
+            gifPath: Assets.images.startupAnimation.path,
+            gifWidth: 3000,
+            gifHeight: 4000,
+          );
         },
       ),
     );

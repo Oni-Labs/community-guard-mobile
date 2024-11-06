@@ -7,6 +7,7 @@ class PasswordInput extends StatefulWidget {
   const PasswordInput({super.key, required this.controller});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PasswordInputState createState() => _PasswordInputState();
 }
 
@@ -19,9 +20,9 @@ class _PasswordInputState extends State<PasswordInput> {
       controller: widget.controller,
       label: 'Senha',
       prefixIcon: Icons.lock,
-      prefixColor: const Color(0xFF972DA8),
+      prefixColor: Colors.deepPurple,
       suffixIcon: _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
-      suffixColor: const Color(0xFF972DA8),
+      suffixColor: Colors.deepPurple,
       suffixOnTap: () {
         setState(() {
           _isPasswordVisible = !_isPasswordVisible;
